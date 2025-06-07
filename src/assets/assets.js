@@ -23,10 +23,10 @@ import badgeIcon from './badgeIcon.svg'
 import menuIcon from './menuIcon.svg'
 import closeMenu from './closeMenu.svg'
 import guestsIcon from './guestsIcon.svg'
-import roomImg1 from './roomImg1.png'
-import roomImg2 from './roomImg2.png'
-import roomImg3 from './roomImg3.png'
-import roomImg4 from './roomImg4.png'
+import roomImg1 from './roomImg1.jpg'
+import roomImg2 from './roomImg3.jpg'
+import roomImg3 from './roomImg1.jpg'
+import roomImg4 from './roomImg3.jpg'
 import regImage from './regImage.png'
 import exclusiveOfferCardImg1 from "./exclusiveOfferCardImg1.png";
 import exclusiveOfferCardImg2 from "./exclusiveOfferCardImg2.png";
@@ -37,7 +37,21 @@ import listIcon from "./listIcon.svg";
 import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
-import siteLogo from "./site-logo.png";
+import siteLogo from "./logo-transparent.png";
+import Her from './herr.jpg'
+import Room1 from './roomImg1.jpg'
+import Room3 from './roomImg3.jpg' 
+import HeroImg from './slider-one.jpg';
+import outside1 from './outside1.jpg'
+import outside2 from './outside2.jpg'
+import outside3 from './outside3.jpg'
+import DiningRoom1 from './DiningRoom1.jpg'
+import DiningRoom2 from './DiningRoom2.jpg'
+import DiningRoom3 from './DiningRoom3.jpg'
+import resort1 from './resort-1.jpg'
+import resort2 from './resort-2.jpg'
+import outside4 from './outside4.jpg'
+import limestone from './limestone.jpg'
 
 
 export const assets = {
@@ -74,13 +88,27 @@ export const assets = {
     totalBookingIcon,
     totalRevenueIcon,
     siteLogo,
+    Her,
+    Room1,
+    Room3,
+    outside1,
+    outside2,
+    outside3,
+    DiningRoom1,
+    DiningRoom2,
+    DiningRoom3,
+    resort1,
+    resort2,
+     HeroImg,
+     outside4,
+     limestone,
 }
 
-export const cities = [
-    "Dubai",
-    "Singapore",
-    "New York",
-    "London",
+export const services = [
+    "Rooms",
+    "Restaurant-Table",
+    "Party-Hall",
+    
 ];
 
 // Exclusive Offers Dummy Data
@@ -132,11 +160,11 @@ export const userDummyData = {
 // Hotel Dummy Data
 export const hotelDummyData = {
     "_id": "67f76393197ac559e4089b72",
-    "name": "Urbanza Suites",
-    "address": "Main Road  123 Street , 23 Colony",
-    "contact": "+0123456789",
+    "name": "Coral Creek",
+    "address": "1 Baratang, Great Trunk Rd, Port Blair, 744210",
+    "contact": "0124 620 1326",
     "owner": userDummyData,
-    "city": "New York",
+    "city": " Andaman and Nicobar Islands ",
     "createdAt": "2025-04-10T06:22:11.663Z",
     "updatedAt": "2025-04-10T06:22:11.663Z",
     "__v": 0
@@ -147,8 +175,8 @@ export const roomsDummyData = [
     {
         "_id": "67f7647c197ac559e4089b96",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 399,
+        "roomType": " Semi Deluxe Room",
+        "pricePerNight": 3000,
         "amenities": ["Room Service", "Mountain View", "Pool Access"],
         "images": [roomImg1, roomImg2, roomImg3, roomImg4],
         "isAvailable": true,
@@ -159,8 +187,8 @@ export const roomsDummyData = [
     {
         "_id": "67f76452197ac559e4089b8e",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 299,
+        "roomType": " Super Deluxe Room",
+        "pricePerNight": 3500,
         "amenities": ["Room Service", "Mountain View", "Pool Access"],
         "images": [roomImg2, roomImg3, roomImg4, roomImg1],
         "isAvailable": true,
@@ -171,8 +199,8 @@ export const roomsDummyData = [
     {
         "_id": "67f76406197ac559e4089b82",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 249,
+        "roomType": "Semi Deluxe Room",
+        "pricePerNight": 3000,
         "amenities": ["Free WiFi", "Free Breakfast", "Room Service"],
         "images": [roomImg3, roomImg4, roomImg1, roomImg2],
         "isAvailable": true,
@@ -183,8 +211,8 @@ export const roomsDummyData = [
     {
         "_id": "67f763d8197ac559e4089b7a",
         "hotel": hotelDummyData,
-        "roomType": "Single Bed",
-        "pricePerNight": 199,
+        "roomType": " Super Deluxe Room",
+        "pricePerNight": 3500,
         "amenities": ["Free WiFi", "Room Service", "Pool Access"],
         "images": [roomImg4, roomImg1, roomImg2, roomImg3],
         "isAvailable": true,
