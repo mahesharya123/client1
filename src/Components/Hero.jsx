@@ -31,8 +31,8 @@ const Hero = () => {
 
   return (
     <div
-      className="flex flex-col items-start justify-center px-6 md:px-16 lg:px-24 xl:px-32 text-white 
-        h-screen bg-no-repeat bg-cover bg-center"
+      className="flex flex-col items-start justify-center w-full px-6 md:px-16 lg:px-24 xl:px-32 text-white 
+        h-screen bg-no-repeat bg-cover "
       style={{
         backgroundImage: `url(${assets.HeroImg})`,
       }}

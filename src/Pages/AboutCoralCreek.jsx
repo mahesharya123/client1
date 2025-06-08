@@ -172,7 +172,7 @@ const AboutCoralCreek = () => {
             <div className="w-20 h-1 bg-amber-500 mx-auto mt-4"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
               <div className="   w-full h-60"><img src= {assets.Room1}/> </div>
               <div className="p-6">
@@ -207,7 +207,7 @@ const AboutCoralCreek = () => {
                     
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition duration-300">
+                <button onClick={()=>{navigate(`/rooms/67f76452197ac559e4089b8e`)}} className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition duration-300">
                   Book Now
                 </button>
               </div>
@@ -247,7 +247,7 @@ const AboutCoralCreek = () => {
                     <span>Private dining area</span>
                   </li>
                 </ul>
-                <button className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition duration-300">
+                <button onClick={()=>{navigate(`/rooms/67f7647c197ac559e4089b96`)}} className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-lg transition duration-300">
                   Book Now
                 </button>
               </div>
