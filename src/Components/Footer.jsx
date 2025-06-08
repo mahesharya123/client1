@@ -1,5 +1,6 @@
 import React from 'react'
 import { assets } from '../assets/assets'
+import { Link } from 'react-router'
 
 const Footer = () => {
   return (
@@ -15,9 +16,9 @@ const Footer = () => {
                     </p>
                     <div className='flex items-center gap-3 mt-4'>
                         {/* Instagram */}
-                        <img src={assets.instagramIcon} alt='instagram-icon' className='w-6'/>
+                       <Link to={`https://www.instagram.com/_coral__creek?igsh=MXMza2V4dmZjNmJ4MQ==`}> <img src={assets.instagramIcon} alt='instagram-icon' className='w-6'/></Link>
                         {/* Facebook */}
-                         <img src={assets.facebookIcon} alt='facebook-icon' className='w-6'/>
+                       <Link to={`https://www.facebook.com/profile.php?id=100083330514889`}>  <img src={assets.facebookIcon} alt='facebook-icon' className='w-6'/></Link>
                         {/* Twitter */}
                          <img src={assets.twitterIcon} alt='twitter-icon' className='w-6'/>
                         {/* LinkedIn */}
