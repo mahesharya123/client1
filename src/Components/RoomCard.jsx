@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
-const RoomCard = ({ type, price, features, image }) => {
+const RoomCard = ({ type, price, features, image, id }) => {
+  const navigate = useNavigate()
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all hover:shadow-xl">
       <div className="h-90 overflow-hidden">
@@ -25,7 +27,7 @@ const RoomCard = ({ type, price, features, image }) => {
           ))}
         </ul>
         
-        <button className="w-full bg-black hover:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-colors">
+        <button  onClick={()=>{ navigate(`/rooms/${id}`); console.log(id)  } }  className="w-full bg-black hover:bg-gray-400 text-white font-bold py-3 px-4 rounded-lg transition-colors">
           Book Now
         </button>
       </div>

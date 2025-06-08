@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     
         
-             <div className=' text-gray-500/80  pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+             <div className=' text-gray-500/80 border border-yellow-200 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 <div className='max-w-80'>
                     <img src={assets.siteLogo} alt="logo" className='mb-4 h-12 md:h-16 invert' />

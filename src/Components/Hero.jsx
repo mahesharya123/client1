@@ -73,20 +73,35 @@ const Hero = () => {
     alert("Form submitted successfully!");
   }}
   
->
-  <div className="flex flex-col">
-    <label htmlFor="rooms" className="text-sm font-medium">Rooms</label>
-    <input
-      min={1}
-      max={10}
-      id="rooms"
-      type="number"
-      value={rooms}
-      onChange={handleRoomChange}
-      className="rounded border border-gray-300 px-3 py-1.5 mt-1 text-sm outline-none max-w-[100px]"
-      placeholder="1"
-    />
+><div className="flex flex-col">
+  <label htmlFor="rooms" className="text-sm font-medium">Rooms</label>
+
+  {/* Mobile: Increment/Decrement buttons */}
+  <div className="flex md:hidden items-center gap-2 mt-1">
+    <button
+      type="button"
+      className="bg-gray-200 px-3 py-1 rounded text-lg"
+      onClick={() => setRooms(prev => Math.max(1, prev - 1))}
+    >−</button>
+    <span className="px-3">{rooms}</span>
+    <button
+      type="button"
+      className="bg-gray-200 px-3 py-1 rounded text-lg"
+      onClick={() => setRooms(prev => Math.min(10, prev + 1))}
+    >+</button>
   </div>
+
+  {/* Desktop: Regular input */}
+  <input
+    min={1}
+    max={10}
+    id="rooms"
+    type="number"
+    value={rooms}
+    onChange={handleRoomChange}
+    className="hidden md:block rounded border border-gray-300 px-3 py-1.5 mt-1 text-sm outline-none max-w-[100px]"
+  />
+</div>
 
   <div className="flex flex-col">
     <label htmlFor="checkIn" className="text-sm font-medium">Check in</label>
@@ -108,20 +123,41 @@ const Hero = () => {
       required
     />
   </div>
+    <div className="flex flex-col">
+  <label htmlFor="guests" className="text-sm font-medium">Guests</label>
 
-  <div className="flex flex-col">
-    <label htmlFor="guests" className="text-sm font-medium">Guests</label>
-    <input
-      min={1}
-      max={rooms * 2}
-      id="guests"
-      type="number"
-      value={guests}
-      onChange={handleGuestChange}
-      className="rounded border border-gray-300 px-3 py-1.5 mt-1 text-sm outline-none max-w-[100px]"
-      placeholder="1"
-    />
+  {/* Mobile: Increment/Decrement buttons */}
+  <div className="flex md:hidden items-center gap-2 mt-1">
+    <button
+      type="button"
+      className="bg-gray-200 px-3 py-1 rounded text-lg"
+      onClick={() => setGuests(prev => Math.max(1, prev - 1))}
+    >−</button>
+    <span className="px-3">{guests}</span>
+    <button
+      type="button"
+      className="bg-gray-200 px-3 py-1 rounded text-lg"
+      onClick={() => {
+        const maxGuests = rooms * 2;
+        if (guests < maxGuests) setGuests(prev => prev + 1);
+        else alert("Add more rooms to accommodate more guests.");
+      }}
+    >+</button>
   </div>
+
+  {/* Desktop: Regular input */}
+  <input
+    min={1}
+    max={rooms * 2}
+    id="guests"
+    type="number"
+    value={guests}
+    onChange={handleGuestChange}
+    className="hidden md:block rounded border border-gray-300 px-3 py-1.5 mt-1 text-sm outline-none max-w-[100px]"
+    placeholder="1"
+  />
+</div>
+
    <div className='flex flex-col'>
     <label for="cars" className="text-sm font-medium">Room Type</label>
 

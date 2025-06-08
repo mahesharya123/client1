@@ -1,13 +1,16 @@
 import React from 'react';
 import { FaBed, FaUtensils, FaMusic } from 'react-icons/fa';
+import { roomsDummyData } from '../assets/assets';
 import RoomCard from '../Components/RoomCard';
 import ServiceSection from '../Components/ServiceSection';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 // Import room images
 import { assets } from '../assets/assets';
 
 const Services1 = () => {
+
   const roomFeatures = [
     "Free WiFi",
     "AC with climate control",
@@ -35,13 +38,17 @@ const Services1 = () => {
             price="3500" 
             features={["King size bed", ...roomFeatures, "Balcony with view"]}
             image={assets.Room1} 
+            id= {roomsDummyData[0]._id}
           />
           <RoomCard 
             type="Semi Deluxe Room" 
             price="3000" 
             features={["Queen size bed", ...roomFeatures]}
             image={assets.Room3}
-          />
+           id={roomsDummyData[1]._id}
+          
+          /> 
+           
         </div>
       </ServiceSection>
 
@@ -110,7 +117,7 @@ const Services1 = () => {
               </li>
             </ul>
             
-            <button className="mt-2 bg-black hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+            <button  className="mt-2 bg-black hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
               Book Now
             </button>
           </div>

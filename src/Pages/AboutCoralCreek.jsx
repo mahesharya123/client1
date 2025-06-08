@@ -15,7 +15,7 @@ const AboutCoralCreek = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Coral Creek Resort</h1>
           <p className="text-xl md:text-2xl text-white max-w-3xl">Experience Nature and Comfort in the Heart of Baratang Island</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <button className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-full shadow-lg transition duration-300">
+            <button  onClick={()=>{navigate('/rooms')}} className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white font-semibold rounded-full shadow-lg transition duration-300">
               Book Your Stay
             </button>
             <button onClick={()=>{navigate('/Gallery')}} className="px-6 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/20 transition duration-300">
