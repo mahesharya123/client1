@@ -1,142 +1,116 @@
-import React from 'react'
-import { useState,useEffect } from 'react';
-import {assets} from '../assets/assets'
-import { useClerk, UserButton, useUser } from '@clerk/clerk-react';
-import { href, useLocation, useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 import { FaWineGlassAlt } from 'react-icons/fa';
-import { FaWineGlass } from 'react-icons/fa';
-
-const BookIcon = ()=>(
-     <svg className="w-4 h-4 text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" >
-    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4" />
-</svg>
-)
 const Navbar = () => {
-  const navLinks = [
-        { name: 'Home', path: '/' },
-        { 
-            name: 'Services', path:'/services'
-            
-        },
-        { name: 'Contact', path: '/Contact' },
-        { name: 'About', path: '/About' },
-    ];
+  const [navOpen, setNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-   
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+  }, [location]);
 
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const {openSignIn} = useClerk()
-    const {user} = useUser()
-    const navigate = useNavigate()
-    const location = useLocation()
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    useEffect(() => {
-        if(location.pathname !=='/'){
-            setIsScrolled(true);
-            return;
-        }
-        else{
-            setIsScrolled(false);
-        }
-        setIsScrolled(prev=>location.pathname !=='/' ? true :prev);
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 10);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [location.pathname]);
+  const toggleNav = () => setNavOpen(prev => !prev);
+  const toggleDropdown = () => setShowDropdown(prev => !prev);
 
-    return (
-        
-            
-            <nav className={`fixed top-0 left-0  w-full flex items-center bg-black justify-between px-4 md:px text lg:px-24 xl:px-32 transition-all duration-500 z-50 ${isScrolled ? "bg-white/80 shadow-md text-gray-700 backdrop-blur-lg py-3 md:py-4" : "py-4 md:py-6"}`}>
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setUser(null);
+    setShowDropdown(false);
+    navigate('/');
+  };
 
-                {/* Logo */}
-                <a href="/" className="flex items-center  ">
-                 
-                       <FaWineGlassAlt size={40} color={` ${isScrolled ? "black" : "white"}`} title="Wine Glass Alt" />
-                       <h1  style={{fontSize:'1.8em'}} className={` ${isScrolled ? "text-black" : "text-white"}`} >Coral Creek</h1>
-                       {/* <FaWineGlass size={40} color={` ${isScrolled ? "black" : "white"}`} title="Wine Glass" />*/}
+  return (
+    <nav className={`fixed top-0 w-full z-50 transition-all ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'}`}>
+      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+       <a href="/" className="flex items-center  ">
+                                     
+            <FaWineGlassAlt size={40} className='text-black'  title="Wine Glass Alt" />
+             <h1  style={{fontSize:'1.8em'}} className='text-black' >Coral Creek</h1>
+              {/* <FaWineGlass size={40} color={` ${isScrolled ? "black" : "white"}`} title="Wine Glass" />*/}
+                    
+         </a>
 
-                </a>
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center gap-6">
+          <Link to="/">Home</Link>
+          <Link to="/rooms">Rooms</Link>
+          <Link to="/Services">Services</Link>
+          <Link to="/About">About</Link>
+          <Link to="/Gallery">Gallery</Link>
+          <Link to="/Contact">Contact</Link>
 
-                {/* Desktop Nav */}
-                <div className="hidden md:flex items-center gap-4 lg:gap-8">
-                    {navLinks.map((link, i) => (
-                        <a key={i} href={link.path} className={`group flex flex-col gap-0.5 ${isScrolled ? "text-gray-700" : "text-white"}`}>
-                            {link.name}
-                            <div className={`${isScrolled ? "bg-gray-700" : "bg-white"} h-0.5 w-0 group-hover:w-full transition-all duration-300`} />
-                        </a>
-                    ))}
-                    <button className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? 'text-black' : 'text-white'} transition-all`} onClick={()=>navigate('/Gallery')}>
-                       Gallery
-                    </button>
+          {user ? (
+            <div className="relative">
+              <button onClick={toggleDropdown} className="bg-blue-600 text-white w-9 h-9 rounded-full font-semibold">
+                {user.name?.charAt(0).toUpperCase()}
+              </button>
+              {showDropdown && (
+                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg">
+                  <Link to="/mybookings" className="block px-4 py-2 text-sm hover:bg-gray-100">My Bookings</Link>
+                  <Link to="/account" className="block px-4 py-2 text-sm hover:bg-gray-100">Manage Account</Link>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                    Logout
+                  </button>
                 </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/login" className="bg-blue-600 text-white px-4 py-2 rounded-md">Login</Link>
+          )}
+        </div>
 
-                {/* Desktop Right */}
-                <div className="hidden md:flex items-center gap-4">
-                    <svg className={`h-6 w-6 ${isScrolled ? "invert" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  
-                       
-                    </svg>
-                    { user ?
-                     (<UserButton>
-                        <UserButton.MenuItems>
-                            <UserButton.Action label='My Bookings ' labelIcon={<BookIcon/>} onClick={()=>navigate('/my-bookings')}/>
-                        </UserButton.MenuItems>
-                     </UserButton>):
-                     (  <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full ml-4 transition-all duration-500">
-                        Login
-                    </button>)
-                }
-                  
-                </div>
+        {/* Mobile Nav */}
+        <div className="md:hidden flex items-center gap-2">
+          {user ? (
+            <button onClick={toggleDropdown} className="bg-blue-600 text-white w-9 h-9 rounded-full font-semibold">
+              {user.name?.charAt(0).toUpperCase()}
+            </button>
+          ) : (
+            <Link to="/login" className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm">Login</Link>
+          )}
+          <button onClick={toggleNav}>
+            {navOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
 
-                {/* Mobile Menu Button */}
-               
-                <div className="flex items-center gap-3 md:hidden">
-                     {user && <UserButton>
-                        <UserButton.MenuItems>
-                            <UserButton.Action label='My Bookings ' labelIcon={<BookIcon/>} onClick={()=>navigate('/my-bookings')}/>
-                        </UserButton.MenuItems>
-                     </UserButton>}
-                    <svg onClick={() => setIsMenuOpen(!isMenuOpen)} style={{color:'white'}} className={`h-6 w-6 cursor-pointer  ${isScrolled ? "invert" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <line x1="4" y1="6" x2="20" y2="6" />
-                        <line x1="4" y1="12" x2="20" y2="12" />
-                        <line x1="4" y1="18" x2="20" y2="18" />
-                    </svg>
-                </div>
+      {/* Mobile Dropdown under icon */}
+      {showDropdown && user && (
+        <div className="md:hidden bg-white border-t px-4 py-3">
+          <Link to="/mybookings" onClick={() => setShowDropdown(false)} className="block py-1">My Bookings</Link>
+          <Link to="/account" onClick={() => setShowDropdown(false)} className="block py-1">Manage Account</Link>
+          <button onClick={handleLogout} className="block text-red-600 py-1">Logout</button>
+        </div>
+      )}
 
-                {/* Mobile Menu */}
-                <div className={`fixed top-0 left-0 w-full h-screen bg-white text-base flex flex-col md:hidden items-center justify-center gap-6 font-medium text-gray-800 transition-all duration-500 ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                    <button className="absolute top-4 right-4" onClick={() => setIsMenuOpen(false)}>
-                        <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
+      {/* Mobile Nav Links */}
+      {navOpen && (
+        <div className="md:hidden bg-white px-4 pt-4 pb-6 space-y-2 border-t">
+          <Link to="/" className="block">Home</Link>
+          <Link to="/rooms" className="block">Rooms</Link>
+          <Link to="/Services" className="block">Services</Link>
+          <Link to="/About" className="block">About</Link>
+          <Link to="/Gallery" className="block">Gallery</Link>
+          <Link to="/Contact" className="block">Contact</Link>
+        </div>
+      )}
+    </nav>
+  );
+};
 
-                    {navLinks.map((link, i) => (
-                        <a key={i} href={link.path} onClick={() => setIsMenuOpen(false)}>
-                            {link.name}
-                        </a>
-                    ))}
-
-                   {
-                      <button className="border px-4 py-1 text-sm font-light rounded-full cursor-pointer transition-all" onClick={()=>navigate('/Gallery')}>
-                        Gallery
-                    </button>
-                     }
-
-                    {!user && <button onClick={openSignIn} className="bg-black text-white px-8 py-2.5 rounded-full transition-all duration-500">
-                        Login
-                    </button>}
-                </div>
-            </nav>
-        
-    );
-   
-}
-
-export default Navbar
+export default Navbar;

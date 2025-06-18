@@ -1,26 +1,61 @@
 import React from 'react';
 import { FaBed, FaUtensils, FaMusic } from 'react-icons/fa';
-import { roomsDummyData } from '../assets/assets';
-import RoomCard from '../Components/RoomCard';
-import ServiceSection from '../Components/ServiceSection';
-import { Link, useNavigate } from 'react-router-dom';
-
-
-// Import room images
 import { assets } from '../assets/assets';
+import { Link, useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const Services1 = () => {
-
+  const navigate = useNavigate();
   const roomFeatures = [
-    "Free WiFi",
-    "AC with climate control",
-    "Smart TV with streaming",
-    "24/7 room service",
-    "Private bathroom with amenities"
+    'Free WiFi',
+    'AC with climate control',
+    'Smart TV with streaming',
+    'Free Car Parking',
   ];
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
+  };
+
+  const images = [
+    assets.Room1,
+    assets.Room3,
+   
+  ];
+
+  function SampleNextArrow(props) {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={`${className} right-2 z-10`} 
+        style={{ ...props.style, display: 'block', background: 'black', borderRadius: '50%' }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, onClick } = props;
+    return (
+      <div
+        className={`${className} left-2 z-10`} 
+        style={{ ...props.style, display: 'block', background: 'black', borderRadius: '50%' }}
+        onClick={onClick}
+      />
+    );
+  }
+
   return (
-    <div className="max-w-6xl mx-auto mt-10 px-4 py-12">
+    <div className="max-w-7xl mx-auto mt-10 px-4 py-12">
       <header className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Our Premium Services
@@ -31,106 +66,93 @@ const Services1 = () => {
       </header>
 
       {/* Rooms Section */}
-      <ServiceSection title="Luxury Accommodation" icon={<FaBed className="text-amber-600 text-2xl" />}>
-        <div className="grid md:grid-cols-2 gap-8">
-          <RoomCard 
-            type="Super Deluxe Room" 
-            price="3500" 
-            features={["King size bed", ...roomFeatures, "Balcony with view"]}
-            image={assets.Room1} 
-            id= {roomsDummyData[0]._id}
-          />
-          <RoomCard 
-            type="Semi Deluxe Room" 
-            price="3000" 
-            features={["Queen size bed", ...roomFeatures]}
-            image={assets.Room3}
-           id={roomsDummyData[1]._id}
-          
-          /> 
+      <section className="flex flex-col md:flex-row gap-10 items-center mb-20">
+        <div className="w-full md:w-1/2">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+            <FaBed className="text-amber-600 mr-2" /> Luxury Accommodation
+          </h2>
+          <ul className="text-gray-700 space-y-2 mb-6">
+            <li>Super Deluxe Room with King size bed</li>
+            <li>Semi Deluxe Room with Queen size bed</li>
            
+            {roomFeatures.map((feature, index) => (
+              <li key={index}>{feature}</li>
+            ))}
+          </ul>
+          <button
+            onClick={() => navigate('/rooms')}
+            className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700"
+          >
+            All Rooms
+          </button>
         </div>
-      </ServiceSection>
+        <div className="w-full md:w-1/2">
+          <Slider {...sliderSettings}>
+            {images.map((img, index) => (
+              <div key={index} className="px-2">
+                <img
+                  src={img}
+                  alt={`Room Image ${index + 1}`}
+                  className="rounded-xl h-80 object-cover w-full"
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      </section>
 
       {/* Restaurant Section */}
-      <ServiceSection title="Fine Dining Restaurant" icon={<FaUtensils className="text-amber-600 text-2xl" />}>
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl">
-          <div className="flex items-center mb-6">
-            <div className="bg-amber-100 p-3 rounded-full mr-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-800">Exquisite Culinary Experience</h3>
-          </div>
-          
+      <section className="flex flex-col md:flex-row-reverse gap-10 items-center mb-20">
+        <div className="w-full md:w-1/2">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+            <FaUtensils className="text-amber-600 mr-2" /> Fine Dining Restaurant
+          </h2>
           <p className="text-gray-700 mb-6 text-lg">
             Experience culinary excellence with our diverse menu crafted by award-winning chefs. 
             We use locally sourced ingredients to create unforgettable dishes.
           </p>
-          
-          <Link 
+          <Link
             to="/restaurant-menu"
-            className="inline-flex items-center bg-black hover:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700"
           >
             View Full Menu
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
-            </svg>
           </Link>
         </div>
-      </ServiceSection>
+        <div className="w-full md:w-1/2">
+          <img
+            src={assets.DiningRoom1}
+            alt="Dining"
+            className="rounded-xl h-80 object-cover w-full shadow-lg"
+          />
+        </div>
+      </section>
 
       {/* Party Hall Section */}
-      <ServiceSection title="Party Hall & Events" icon={<FaMusic className="text-amber-600 text-2xl" />}>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <div className="flex items-center mb-4">
-              <div className="bg-amber-100 p-2 rounded-full mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.06-6.365m-1.313 8.485a9 9 0 010-12.728" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800">Premium Event Space</h3>
-            </div>
-            
-            <ul className="space-y-3 text-gray-700 mb-6">
-              <li className="flex items-start">
-                <span className="text-amber-600 mr-2">•</span>
-                <span>Professional sound system with DJ setup</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-amber-600 mr-2">•</span>
-                <span>Capacity: 150+ guests</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-amber-600 mr-2">•</span>
-                <span>Dedicated event planning team</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-amber-600 mr-2">•</span>
-                <span>Customizable lighting systems</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-amber-600 mr-2">•</span>
-                <span>Catering services available</span>
-              </li>
-            </ul>
-            
-            <button  className="mt-2 bg-black hover:bg-gray-600 text-white font-bold py-3 px-6 rounded-lg transition-colors">
-              Book Now
-            </button>
-          </div>
-          
-          <div className="rounded-xl overflow-hidden">
-            <img 
-              src={assets.DiningRoom3} 
-              alt="Party Hall" 
-              className="w-full h-80 object-cover rounded-xl shadow-lg"
-            />
-          </div>
+      <section className="flex flex-col md:flex-row gap-10 items-center">
+        <div className="w-full md:w-1/2">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4 flex items-center">
+            <FaMusic className="text-amber-600 mr-2" /> Party Hall & Events
+          </h2>
+          <ul className="text-gray-700 space-y-3 mb-6">
+            <li>Professional sound system </li>
+            <li>Capacity: 150+ guests</li>
+            <li>Dedicated event planning team</li>
+            <li>Customizable lighting systems</li>
+          </ul>
+          <button
+            className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700"
+          >
+            Book Now
+          </button>
         </div>
-      </ServiceSection>
+        <div className="w-full md:w-1/2">
+          <img
+            src={assets.DiningRoom3}
+            alt="Party Hall"
+            className="rounded-xl h-80 object-cover w-full shadow-lg"
+          />
+        </div>
+      </section>
     </div>
   );
 };

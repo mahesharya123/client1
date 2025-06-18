@@ -18,51 +18,108 @@ const SingleRoomBooking = () => {
   slidesToScroll: 1
 };
   if (!room) return <p>Room not found.</p>;
-
-  const totalPrice = guests * rooms * room.pricePerNight;
+     const totalPrice =  rooms * room.pricePerNight;
 
   return (
     <>
-   <div className='flex flex-col md:flex-col gap-10 mt-10 px-6 md:px-20 py-10'>
+   <div className='flex flex-col md:flex-col gap-10 mt-10 px-6 md:px-20 py-10 '>
   {/* Left Section - Images and Details */}
   <div className='flex-1'>
-    <h1 className='text-3xl   bg-white font-bold mb-2'>{room.hotel.name}</h1>
-    <h2 className='  mb-6   bg-white bg-opacity-50 px-18 py-2 w-70 text-gray-700  text- rounded'>{room.roomType}</h2>
+    <h1 className='text-3xl   bg-white font-bold mb-2'>{room.roomType}</h1>
+    <h2 className='  mb-6   bg-white bg-opacity-50 px-18 py-2 w-70 text-gray-700  text- rounded'>{room.hotel.name} </h2>
   <div className='flex md:flex-row flex-col gap-30'>
-    <div className="w-full max-w-3xl mb-6 mx-auto md:mx-0">
+    <div className="w-full max-w-3xl mb-4 md:mb-2 mx-auto md:mx-0">
       <Slider {...sliderSettings}>
         {room.images.map((img, i) => (
           <img
             key={i}
             src={img}
             alt={`room-img-${i}`}
-            className='w-full h-84 md:h-full lg:h-full  object-cover rounded-lg shadow'
+            className='w-full h-84 md:h-full lg:h-full md:mb-3 object-cover rounded-lg shadow'
           />
         ))}
       </Slider>
     </div>
            <div className='w-full  md:w-1/2  p-6 bg-white rounded-lg shadow-md'>
-        <h3 className='text-xl font-semibold mb-4'>Price Details</h3>
+        <h3 className='text-xl font-semibold mb-4'>Price Details  {room.pricePerNight}</h3> 
 
-        <div className='mb-4'>
-          <label className='block mb-1'>Guests</label>
-          <input type='number' min={1} value={guests} onChange={(e) => setGuests(+e.target.value)} className='w-full border rounded p-2'/>
-        </div>
+        {/* Guests Input */}
+<div className='mb-4'>
+  <label className='block mb-1'>Guests</label>
+  <div className='flex items-center gap-2'>
+    <button 
+      className='px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 md:hidden'
+      onClick={() => setGuests(prev => Math.max(1, prev - 1))}
+    >-</button>
+    <input 
+      type='number' 
+      min={1} 
+      max={rooms * 2}
+      value={guests} 
+      onChange={(e) => {
+        const val = +e.target.value;
+        if (val <= rooms * 2) setGuests(val);
+       
+      }}
+      className='w-50
+   text-center border rounded p-2'
+    />
+    <button 
+      className='px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 md:hidden'
+      onClick={() => setGuests(prev => Math.min(rooms * 2, prev + 1))}
+    >+</button>
+  </div>
+  <small className='text-sm text-gray-600'>Max 2 guests allowed per room.</small>
+</div>
+        {/* Rooms Input */}
+<div className='mb-4'>
+  <label className='block mb-1'>Rooms</label>
+  <div className='flex items-center gap-2'>
+    <button 
+      className='px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 md:hidden'
+      onClick={() => {
+        if (rooms > 1) {
+          const newRooms = rooms - 1;
+          setRooms(newRooms);
+          if (guests > newRooms * 2) setGuests(newRooms * 2);
+          
+        }
+      }}
+    >-</button>
+    <input 
+      type='number' 
+      min={1} 
+      value={rooms} 
+      onChange={(e) => {
+        const val = Math.max(1, +e.target.value);
+        setRooms(val);
+        if (guests > val * 2) setGuests(val * 2 );
+        
+      }}
+      className='w-16 text-center border rounded p-2 w-50'
+  
+    />
+    <button 
+      className='px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 md:hidden'
+      onClick={() => setRooms(prev => prev + 1)}
+    >+</button>
+  </div>
+</div>
 
-        <div className='mb-4'>
-          <label className='block mb-1'>Rooms</label>
-          <input type='number' min={1} value={rooms} onChange={(e) => setRooms(+e.target.value)} className='w-full border rounded p-2'/>
-        </div>
 
         <div className='mb-6 '>
           <p className='text-lg mt-2'>Per Night Price: <strong>₹{room.pricePerNight}</strong></p>
-          <p className='text-lg mt-2'>Total: <strong>₹{totalPrice}</strong></p>
+         
+
+          <p className='text-lg mt-2'>Total:
+             <strong>₹{totalPrice - 200}</strong></p>
+             <smaall>including all taxes</smaall>
         </div>
 
-        <button className='w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition mt-2'>Pay Now</button>
+        <button className='w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition mt-2'>Continue Booking</button>
 
         <div className="mt-3 bg-white p-6  max-w-3xl ">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Booking Information</h3>
+            <h3 className="text-xl font-bold  mb-4 text-red">Booking Information</h3>
             <p className="text-gray-600 mb-4">
             Booking terms=50% advance payment is required before booking the room.
 
@@ -88,9 +145,9 @@ Cancellation policy-=If you cancel your booked room within seven days, you will 
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {[
               'Restaurant', 'Lounge', 'Room Service', 'Air Conditioning', 'Power Backup', 'Housekeeping',
-              'Free Parking', 'Free Wi-Fi', 'Paid Airport Transfers', 'Paid Shuttle Service', 'Dining Area',
-              'Coffee Shop', 'TV', 'Luggage Storage', 'Multilingual Staff', 'Luggage Assistance', 'Bellboy Service',
-              'Caretaker', 'Wake-up Call', 'Facilities for Guests with Disabilities', 'Beach', 'Reception', 'Balcony/Terrace',
+              'Free Parking', 'Free Wi-Fi',   'Dining Area',
+              'Coffee Shop', 'TV',  'Multilingual Staff',  'Bellboy Service',
+              'Caretaker',  'Facilities for Guests with Disabilities', 'Beach', 'Reception', 
               'Seating Area',
             ].map((item, idx) => (
               <div key={idx} className=' p-2 rounded shadow-sm  text-sm'>{item}</div>

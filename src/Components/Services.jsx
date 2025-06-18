@@ -46,12 +46,12 @@ const Services = () => {
             {[
               { 
                 title: "Luxurious Accommodations", 
-                description: "Comfortable, minimalistically designed yet elegant rooms with king-sized beds, AC, TV, and stunning nature views",
+                description: "Comfortable, minimalistically designed yet elegant rooms with king-sized or Queen-sized beds, AC, TV, and stunning nature views",
                 icon: "🏨"
               },
               { 
-                title: "Free Wi-Fi & Breakfast", 
-                description: "Stay connected with complimentary high-speed internet and enjoy daily free breakfast buffet",
+                title: "Free Wi-Fi ", 
+                description: "Stay connected with complimentary high-speed internet ",
                 icon: "📶"
               },
               { 
@@ -61,17 +61,17 @@ const Services = () => {
               },
               { 
                 title: "Family Friendly", 
-                description: "Free accommodation for kids, playground, indoor play area, and family suites",
+                description: " Playground, indoor play area, and family suites",
                 icon: "👨‍👩‍👧‍👦"
               },
               { 
                 title: "Transportation", 
-                description: "Free car parking, electric vehicle charging, and tour assistance",
+                description: "Free car parking",
                 icon: "🚗"
               },
               { 
                 title: "Scenic Spaces", 
-                description: "Private seating areas, rooftop terrace with panoramic views of sunrise and sunset",
+                description: " Panoramic views of sunrise and sunset",
                 icon: "🌅"
               }
             ].map((facility, index) => (

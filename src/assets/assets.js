@@ -41,6 +41,7 @@ import siteLogo from "./logo-transparent.png";
 import Her from './herr.jpg'
 import Room1 from './roomImg1.jpg'
 import Room3 from './roomImg3.jpg' 
+import Room2 from './roomImg2.jpg';
 import HeroImg from './slider-one.jpg';
 import outside1 from './outside1.jpg'
 import outside2 from './outside2.jpg'
@@ -102,6 +103,7 @@ export const assets = {
      HeroImg,
      outside4,
      limestone,
+     Room2,
 }
 
 export const services = [
@@ -128,10 +130,10 @@ export const testimonials = [
 // Facility Icon
 export const facilityIcons = {
     "Free WiFi": assets.freeWifiIcon,
-    "Free Breakfast": assets.freeBreakfastIcon,
+   
     "Room Service": assets.roomServiceIcon,
-    "Mountain View": assets.mountainIcon,
-    "Pool Access": assets.poolIcon,
+    "View of Sunrise": assets.mountainIcon,
+   
 };
 
 // For Room Details Page
@@ -177,7 +179,7 @@ export const roomsDummyData = [
         "hotel": hotelDummyData,
         "roomType": " Semi Deluxe Room",
         "pricePerNight": 3000,
-        "amenities": ["Room Service", "Mountain View", "Pool Access"],
+        "amenities": ["Room Service", "View of Sunrise", "Free WiFi"],
         "images": [roomImg1, roomImg2, roomImg3, roomImg4],
         "isAvailable": true,
         "createdAt": "2025-04-10T06:26:04.013Z",
@@ -189,7 +191,7 @@ export const roomsDummyData = [
         "hotel": hotelDummyData,
         "roomType": " Super Deluxe Room",
         "pricePerNight": 3500,
-        "amenities": ["Room Service", "Mountain View", "Pool Access"],
+        "amenities": ["Room Service", "View of Sunrise", "Free WiFi"],
         "images": [roomImg2, roomImg3, roomImg4, roomImg1],
         "isAvailable": true,
         "createdAt": "2025-04-10T06:25:22.593Z",
@@ -201,7 +203,7 @@ export const roomsDummyData = [
         "hotel": hotelDummyData,
         "roomType": "Semi Deluxe Room",
         "pricePerNight": 3000,
-        "amenities": ["Free WiFi", "Free Breakfast", "Room Service"],
+        "amenities": ["Free WiFi", "View of Sunrise", "Room Service"],
         "images": [roomImg3, roomImg4, roomImg1, roomImg2],
         "isAvailable": true,
         "createdAt": "2025-04-10T06:24:06.285Z",
@@ -213,7 +215,7 @@ export const roomsDummyData = [
         "hotel": hotelDummyData,
         "roomType": " Super Deluxe Room",
         "pricePerNight": 3500,
-        "amenities": ["Free WiFi", "Room Service", "Pool Access"],
+        "amenities": ["Free WiFi", "Room Service", "View of Sunrise"],
         "images": [roomImg4, roomImg1, roomImg2, roomImg3],
         "isAvailable": true,
         "createdAt": "2025-04-10T06:23:20.252Z",

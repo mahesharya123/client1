@@ -1,6 +1,9 @@
 // src/pages/AboutCoralCreek.jsx
 import React from 'react';
 import { assets } from '../assets/assets';
+import { roomsDummyData } from '../assets/assets';
+import HotelCard from '../Components/HotelCard';
+import Title from '../Components/Title';
 import { useNavigate } from 'react-router';
 
 const AboutCoralCreek = () => {
@@ -124,12 +127,12 @@ const AboutCoralCreek = () => {
             {[
               { 
                 title: "Luxurious Accommodations", 
-                description: "Comfortable, minimalistically designed yet elegant rooms with king-sized beds, AC, TV, and stunning nature views",
+                description: "Comfortable, minimalistically designed yet elegant rooms with king-sized or Queen sized beds, AC, TV, and stunning nature views",
                 icon: "🏨"
               },
               { 
-                title: "Free Wi-Fi & Breakfast", 
-                description: "Stay connected with complimentary high-speed internet and enjoy daily free breakfast buffet",
+                title: "Free Wi-Fi", 
+                description: "Stay connected with complimentary high-speed internet",
                 icon: "📶"
               },
               { 
@@ -139,17 +142,17 @@ const AboutCoralCreek = () => {
               },
               { 
                 title: "Family Friendly", 
-                description: "Free accommodation for kids, playground, indoor play area, and family suites",
+                description: "Playground, indoor play area, and family suites",
                 icon: "👨‍👩‍👧‍👦"
               },
               { 
                 title: "Transportation", 
-                description: "Free car parking, electric vehicle charging, and tour assistance",
+                description: "Free car parking",
                 icon: "🚗"
               },
               { 
                 title: "Scenic Spaces", 
-                description: "Private seating areas, rooftop terrace with panoramic views of sunrise and sunset",
+                description: "Panoramic views of sunrise and sunset",
                 icon: "🌅"
               }
             ].map((facility, index) => (
@@ -165,18 +168,33 @@ const AboutCoralCreek = () => {
 
       {/* Room Tariffs Section */}
       <section className="py-16 bg-gradient-to-r from-amber-50 to-orange-50">
-        <div className="max-w-6xl mx-auto px-4">
+
+        <div className='flex flex-col items-center px-4 sm:px-6 md:px-12 lg:px-24  bg-gradient-to-r from-amber-50 to-orange-50 py-12 sm:py-16 md:py-20'>
+      <Title
+        title='Rooms with a View'
+        subTitle='Our resort offers unparalleled luxury and unforgettable experiences. Explore rooms tailored to meet your every need.'
+      />
+      
+      <div className='flex flex-wrap justify-center gap-6 mt-12   sm:mt-16'>
+        {roomsDummyData.slice(0, 4).map((room, index) => (
+          <HotelCard key={room._id} room={room} index={index}  />
+        ))}
+      </div>
+
+     
+    </div>
+        {/*<div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">Room Options & Tariffs</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">Choose from our comfortable accommodations tailored for every traveler</p>
             <div className="w-20 h-1 bg-amber-500 mx-auto mt-4"></div>
           </div>
           
-          <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="   w-full h-60"><img src= {assets.Room1}/> </div>
+              <div className="   w-full h-60 "><img src= {assets.Room1}/> </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2"> Super Deluxe Room</h3>
+                <h3 className="text-xl font-bold text-white mt-10 mb-2"> Super Deluxe Room</h3>
                 <div className="flex items-center mb-4">
                   <span className="text-2xl font-bold text-amber-600">₹3,500</span>
                   <span className="text-gray-500 ml-2">/ night</span>
@@ -293,7 +311,7 @@ const AboutCoralCreek = () => {
               </div>
             </div>
           </div>
-          
+          */}
           <div className="mt-12 bg-white p-6 rounded-xl shadow-lg max-w-3xl mx-auto">
             <h3 className="text-xl font-bold text-gray-800 mb-4">Booking Information</h3>
             <p className="text-gray-600 mb-4">
@@ -305,7 +323,7 @@ Cancellation policy-=If you cancel your booked room within seven days, you will 
               You can also book a room by visiting in person at the hotel reception but, we advise booking a hotel room in Baratang Island prior to your arrival to avoid last-minute hassles.
             </p>
           </div>
-        </div>
+        
       </section>
 
       {/* CTA Section */}

@@ -23,7 +23,7 @@ const Hero = () => {
 
     if (value > maxGuests) {
       window.alert("Please add more rooms to accommodate additional guests.");
-      return;
+    
     }
 
     setGuests(value);

@@ -1,6 +1,7 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { Link } from 'react-router'
+import { FaWineGlassAlt } from 'react-icons/fa'
 
 const Footer = () => {
   return (
@@ -9,8 +10,14 @@ const Footer = () => {
              <div className=' text-gray-500/80 border border-yellow-200 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 <div className='max-w-80'>
-                    <img src={assets.siteLogo} alt="logo" className='mb-4 h-12 md:h-16 invert' />
-                    <p className='text-sm'>
+                       <a href="/" className="flex items-center  ">
+                                     
+                                           <FaWineGlassAlt size={40} className='text-black'  title="Wine Glass Alt" />
+                                           <h1  style={{fontSize:'1.8em'}} className='text-black' >Coral Creek</h1>
+                                           {/* <FaWineGlass size={40} color={` ${isScrolled ? "black" : "white"}`} title="Wine Glass" />*/}
+                    
+                                    </a>
+                    <p className='text-sm mt-2'>
                        Discover the world's most extraordinary places to stay, from boutique hotels
                        to luxry villas and private islands.
                     </p>
