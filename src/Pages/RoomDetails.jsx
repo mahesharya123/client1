@@ -128,7 +128,9 @@ useEffect(() => {
 const amountToPay = Math.round(
   (paymentMethod === 'Pay Half Amount' ? fullAmount / 2 : fullAmount) * 100
 ); // Convert to paise
-const paisa = amountToPay;
+console.log('Sending Razorpay amount (paise):', amountToPay);
+
+
 
     const orderRes = await fetch('https://coralcreek-backend.onrender.com/api/payments/create-order', {
       method: 'POST',
