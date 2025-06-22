@@ -8,7 +8,7 @@ const HotelCard = ({ room, index }) => {
   return (
     <div
       key={room._id}
-      className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-500/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'
+      className='relative max-w-70 w-full rounded-xl overflow-hidden bg-white text-gray-600/90 shadow-[0px_4px_4px_rgba(0,0,0,0.05)]'
     >
       <img src={room.images[0]} alt="" />
       {index % 2 !== 0 && (
@@ -19,16 +19,22 @@ const HotelCard = ({ room, index }) => {
       <div className='p-4 pt-5'>
         <div className='flex items-center justify-between'>
           <p className='font-playfair text-x1 font-medium text-gray-800'>
-            {room.hotel.name}
+            {room.hotelName}
           </p>
+           
+      
           <div className='flex items-center gap-1'>
             <img src={assets.starIconFilled} alt='star-icon' /> 4.5
           </div>
+           
+        
         </div>
+         <div className='flex items-center mt-2'>   <h4 className='text-bold'> {room.roomType}</h4></div>
         <div className='flex items-center gap-1 mt-2'>
           <img src={assets.locationIcon} alt='location-icon' />
-          <span>{room.hotel.address}</span>
+          <span>{room.location}</span>
         </div>
+       
         <div className='flex items-center justify-between mt-4'>
           <p>
             <span className='text-x1 text-gray-800'>RS {room.pricePerNight}</span>/night

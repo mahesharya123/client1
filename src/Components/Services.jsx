@@ -11,8 +11,9 @@ const services = [
     icon: <FaUtensils className="text-4xl text-green-600" />,
   },
   {
-    title: 'Party Hall',
+    title: <button><span>'Party Hall'</span></button>,
     icon: <FaGlassCheers className="text-4xl text-purple-600" />,
+    
   },
 ];
 

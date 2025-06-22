@@ -1,10 +1,42 @@
-import React from 'react'
-import { assets, facilityIcons, roomsDummyData } from '../assets/assets'
-import { useNavigate } from 'react-router'
-import Starrating from '../Components/Starrating'
+import React, { useEffect, useState } from 'react';
+import { assets, facilityIcons } from '../assets/assets';
+import { useNavigate } from 'react-router';
+import Starrating from '../Components/Starrating';
 
 const AllRoom = () => {
+  const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const res = await fetch('https://coralcreek-backend.onrender.com/api/rooms');
+        const data = await res.json();
+        if (res.ok) {
+          setRooms(data.rooms);
+        } else {
+          setError(data.message || 'Failed to fetch rooms');
+        }
+      } catch (err) {
+        setError('Server error. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRooms();
+  }, []);
+
+  if (loading) {
+    return <p className='pt-28 text-center text-gray-600'>Loading rooms...</p>;
+  }
+
+  if (error) {
+    return <p className='pt-28 text-center text-red-500'>{error}</p>;
+  }
 
   return (
     <div className='flex flex-col pt-28 md:pt-35 px-4 md:px-16 lg:px-24 xl:px-32'>
@@ -12,12 +44,12 @@ const AllRoom = () => {
       <div className='mb-10'>
         <h1 className='font-playfair text-4xl md:text-[40px]'>Rooms at Coral Creek</h1>
         <p className='text-sm md:text-base text-gray-500/90 mt-2'>
-           Experience the Perfect Blend of Comfort , Luxury  and create unforgettable memories.
+          Experience the Perfect Blend of Comfort, Luxury and create unforgettable memories.
         </p>
       </div>
 
       {/* Room List */}
-      {roomsDummyData.map((room) => (
+      {rooms.map((room) => (
         <div
           key={room._id}
           className='flex flex-col md:flex-row gap-8 items-start border-b border-gray-300 py-10 last:border-0'
@@ -38,10 +70,8 @@ const AllRoom = () => {
 
           {/* Right - Text + Button */}
           <div className='w-full md:w-1/2 flex flex-col justify-between'>
-            {/* Top Text */}
             <div>
-              <p className='text-gray-500'>{room.hotel.city}</p>
-
+              <p className='text-gray-500'>{room.city}</p>
               <p
                 onClick={() => {
                   navigate(`/rooms/${room._id}`);
@@ -54,29 +84,28 @@ const AllRoom = () => {
 
               <div className='flex items-center mt-2'>
                 <Starrating />
-                <p className='ml-2'>200+ reviews</p>
+                <p className='ml-2'>100+ reviews</p>
               </div>
 
               <div className='flex items-center gap-1 text-gray-500 mt-2 text-sm'>
                 <img src={assets.locationIcon} alt='location-icon' className='w-4 h-4' />
-                <span>{room.hotel.address}</span>
+                <span>{room.location}</span>
               </div>
 
               {/* Amenities */}
               <div className='flex flex-wrap items-center mt-4 gap-3'>
-                {room.amenities.map((item, index) => (
+                {room.features?.map((item, index) => (
                   <div
                     key={index}
                     className='flex items-center gap-2 px-3 py-2 bg-[#F5F5FF]/70 rounded-lg'
                   >
-                    <img src={facilityIcons[item]} alt={item} className='w-5 h-5' />
+                    
                     <p className='text-xs'>{item}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Price and Button */}
             <div className='flex items-center justify-between mt-6'>
               <p className='text-xl font-semibold text-gray-700'>
                 Rs {room.pricePerNight} / night

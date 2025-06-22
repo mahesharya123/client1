@@ -1,79 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MenuCategory from '../Components/MenuCategory';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const RestaurantMenu = () => {
-  const menuData = [
-    {
-      title: "Hot Drinks",
-      items: [
-        { name: "Milk Tea", price: "Rs. 80/-" },
-        { name: "Black Tea", price: "Rs. 60/-" },
-        { name: "Milk Coffee", price: "Rs. 90/-" },
-        { name: "Black Coffee", price: "Rs. 70/-" },
-        { name: "Ginger/Lemon/Honey Tea", price: "Rs. 100/-" },
-        { name: "Hot Milk", price: "Rs. 80/-" },
-        { name: "Masala Tea", price: "Rs. 90/-" }
-      ]
-    },
-    {
-      title: "Cold Drinks & Juices",
-      items: [
-        { name: "Lemon Juice", price: "Rs. 80/-" },
-        { name: "Lemon Soda", price: "Rs. 70/-" },
-        { name: "Banana Milk Shake", price: "Rs. 100/-" },
-        { name: "Plain Lassi", price: "Rs. 80/-" },
-        { name: "Sweet Lassi", price: "Rs. 80/-" },
-        { name: "Sharja Shake", price: "Rs. 145/-" },
-        { name: "Water (1 ltr)", price: "Rs. 50/-" },
-        { name: "Banana Coconut Shake", price: "Rs. 120/-" },
-        { name: "Apple Juice", price: "Rs. 120/-" },
-        { name: "Cold Coffee", price: "Rs. 100/-" },
-        { name: "Curd", price: "Rs. 80/-" },
-        { name: "Coke", price: "Rs. 70/-" }
-      ]
-    },
-    {
-      title: "Breakfast & Snacks",
-      items: [
-        { name: "Plain Toast", price: "Rs. 50/-" },
-        { name: "Butter Jam Toast", price: "Rs. 70/-" },
-        { name: "Cheese Toast", price: "Rs. 90/-" },
-        { name: "Veg Cheese Sandwich", price: "Rs. 110/-" },
-        { name: "Veg Egg Cheese Sandwich", price: "Rs. 140/-" },
-        { name: "Chicken Sandwich", price: "Rs. 150/-" },
-        { name: "Veg Omlet Sandwich", price: "Rs. 110/-" },
-        { name: "Veg Sandwich", price: "Rs. 90/-" },
-        { name: "Boiled Egg (2 pcs)", price: "Rs. 70/-" },
-        { name: "Plain Omlet", price: "Rs. 80/-" },
-        { name: "Veg Cheese Omlet", price: "Rs. 120/-" },
-        { name: "Bread Omlet", price: "Rs. 100/-" },
-        { name: "Puri Bhaji", price: "Rs. 120/-" }
-      ]
-    },
-    {
-      title: "Main Course",
-      items: [
-        { name: "Bindi Masala", price: "Rs. 160/-" },
-        { name: "Mixed Masala", price: "Rs. 180/-" },
-        { name: "Channa Masala", price: "Rs. 170/-" },
-        { name: "Palak Paneer", price: "Rs. 190/-" },
-        { name: "Paneer Butter Masala", price: "Rs. 250/-" },
-        { name: "Boiled Vegetables", price: "Rs. 120/-" },
-        { name: "Aloo Jeera", price: "Rs. 150/-" },
-        { name: "Brinjal Fry", price: "Rs. 130/-" },
-        { name: "Brinjal Bhartha", price: "Rs. 150/-" },
-        { name: "Brinjal Masala", price: "Rs. 160/-" },
-        { name: "Chilli Paneer", price: "Rs. 220/-" },
-        { name: "Veg Kofta", price: "Rs. 200/-" },
-        { name: "Mutter Paneer", price: "Rs. 220/-" },
-        { name: "Aloo Gobi", price: "Rs. 250/-" },
-        { name: "Dal Tadka", price: "Rs. 140/-" },
-        { name: "Plain Dal", price: "Rs. 120/-" },
-        { name: "Aloo Mutter", price: "Rs. 180/-" }
-      ]
-    }
-  ];
+  const [menuData, setMenuData] = useState([]);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const res = await axios.get('https://coralcreek-backend.onrender.com/api/menu');
+        setMenuData(res.data);
+      } catch (err) {
+        console.error('Failed to fetch menu:', err);
+        setError('Failed to load menu. Please try again later.');
+      }
+    };
+
+    fetchMenu();
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto mt-10 px-4 py-12">
@@ -90,6 +36,14 @@ const RestaurantMenu = () => {
       </header>
 
       <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+        {error && (
+          <p className="text-center text-red-600 mb-4">{error}</p>
+        )}
+
+        {menuData.length === 0 && !error && (
+          <p className="text-center text-gray-500">Loading menu...</p>
+        )}
+
         {menuData.map((category, index) => (
           <MenuCategory 
             key={index} 

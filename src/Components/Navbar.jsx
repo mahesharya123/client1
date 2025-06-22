@@ -54,24 +54,34 @@ const Navbar = () => {
           <Link to="/Gallery">Gallery</Link>
           <Link to="/Contact">Contact</Link>
 
-          {user ? (
-            <div className="relative">
-              <button onClick={toggleDropdown} className="bg-blue-600 text-white w-9 h-9 rounded-full font-semibold">
-                {user.name?.charAt(0).toUpperCase()}
-              </button>
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg">
-                  <Link to="/mybookings" className="block px-4 py-2 text-sm hover:bg-gray-100">My Bookings</Link>
-                  <Link to="/account" className="block px-4 py-2 text-sm hover:bg-gray-100">Manage Account</Link>
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <Link to="/login" className="bg-blue-600 text-white px-4 py-2 rounded-md">Login</Link>
-          )}
+         {user ? (
+  <div className="relative">
+    <button onClick={toggleDropdown} className="bg-black text-white w-9 h-9 rounded-full font-semibold">
+      {user.name?.charAt(0).toUpperCase()}
+    </button>
+    {showDropdown && (
+      <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg">
+        {user.isAdmin ? (
+          <>
+            <Link to="/admin"  className="block px-4 py-2 text-sm hover:bg-gray-100">My Dashboard</Link>
+            <Link to="/account" className="block px-4 py-2 text-sm hover:bg-gray-100">Manage Account</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/mybookings" className="block px-4 py-2 text-sm hover:bg-gray-100">My Bookings</Link>
+            <Link to="/account" className="block px-4 py-2 text-sm hover:bg-gray-100">Manage Account</Link>
+          </>
+        )}
+        <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+          Logout
+        </button>
+      </div>
+    )}
+  </div>
+) : (
+  <Link to="/login" className="bg-blue-600 text-white px-4 py-2 rounded-md">Login</Link>
+)}
+
         </div>
 
         {/* Mobile Nav */}
@@ -91,12 +101,22 @@ const Navbar = () => {
 
       {/* Mobile Dropdown under icon */}
       {showDropdown && user && (
-        <div className="md:hidden bg-white border-t px-4 py-3">
-          <Link to="/mybookings" onClick={() => setShowDropdown(false)} className="block py-1">My Bookings</Link>
-          <Link to="/account" onClick={() => setShowDropdown(false)} className="block py-1">Manage Account</Link>
-          <button onClick={handleLogout} className="block text-red-600 py-1">Logout</button>
-        </div>
-      )}
+  <div className="md:hidden bg-white border-t px-4 py-3">
+    {user.isAdmin ? (
+      <>
+        <Link to="/admin-dashboard" onClick={() => setShowDropdown(false)} className="block py-1">My Dashboard</Link>
+        <Link to="/account" onClick={() => setShowDropdown(false)} className="block py-1">Manage Account</Link>
+      </>
+    ) : (
+      <>
+        <Link to="/mybookings" onClick={() => setShowDropdown(false)} className="block py-1">My Bookings</Link>
+        <Link to="/account" onClick={() => setShowDropdown(false)} className="block py-1">Manage Account</Link>
+      </>
+    )}
+    <button onClick={handleLogout} className="block text-red-600 py-1">Logout</button>
+  </div>
+)}
+
 
       {/* Mobile Nav Links */}
       {navOpen && (

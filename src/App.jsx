@@ -11,7 +11,7 @@ import AboutCoralCreek from './Pages/AboutCoralCreek';
 import GalleryPage from './Pages/Gallery';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-
+import MyBookings from './Pages/MyBooking';
 import SingleRoomBooking from './Pages/SingleRoomBooking';
 import Services1 from './Pages/Services1';
 import RestaurantMenu from './Pages/RestaurantMenu';
@@ -19,7 +19,12 @@ import RoomDetails from './Pages/RoomDetails';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import AddRoom from './Pages/AddRoom';
-
+import AdminLayout from './Pages/AdminLayout';
+import Dashboard from './Pages/admin/Dashboard';
+import AdminNavbar from './Pages/admin/AdminNavbar';
+import ListRoom from './Pages/ListRoom';
+import AddMenu from './Pages/AddMenu';
+import ListMenu from './Pages/ListMenu';
 const user = JSON.parse(localStorage.getItem('user'));
 
 function App() {
@@ -27,29 +32,43 @@ function App() {
 const isAdmin = user?.isAdmin;
 
 
-  return (
+   return (
     <div>
-      { <Navbar user={user}/>}
-      <div  className='min-h-[70v]'>
-        <Routes >
-          <Route path='/' element={<Home/>} /> 
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/register' element={<Register/>}/>
-             <Route path='/rooms' element={<AllRoom/>} /> 
-            <Route path='/Contact' element={<ContactUs/>}/>
-             <Route path='/About' element={<AboutCoralCreek/>}/>
-               <Route path='/Gallery' element={<GalleryPage/>}/>
-              <Route path='/rooms/:id' element={<RoomDetails/>}/>
-              <Route path='/Services' element={<Services1/>}/>
-               <Route path="/restaurant-menu" element={<RestaurantMenu />} />
-               {/* Admin Only Route */}
-               {isAdmin && <Route path='/AddRoom' element={<AddRoom />} />}
-          </Routes>
+      {/* Only show Navbar if NOT in admin routes */}
+      {isAdmin? <AdminNavbar/>: <Navbar user={user} />}
+      
+      <div className="min-h-[70vh]">
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/rooms" element={<AllRoom />} />
+          <Route path="/Contact" element={<ContactUs />} />
+          <Route path="/About" element={<AboutCoralCreek />} />
+          <Route path="/Gallery" element={<GalleryPage />} />
+          <Route path="/rooms/:id" element={<RoomDetails />} />
+          <Route path="/Services" element={<Services1 />} />
+          <Route path="/mybookings" element={<MyBookings />} />
+          <Route path="/restaurant-menu" element={<RestaurantMenu />} />
 
+          {/* Admin Routes with Layout */}
+          {user?.isAdmin && (
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="add-room" element={<AddRoom />} />
+              <Route path="add-menu" element={<AddMenu />} />
+              <Route path="list-room" element={<ListRoom/>} />
+              <Route path="list-menu" element={<ListMenu />} />
+            </Route>
+          )}
+        </Routes>
       </div>
-      <Footer/>
+
+      {/* Only show Footer if NOT in admin routes */}
+      {!isAdmin&& <Footer />}
     </div>
-  )
+  );
 }
 
 export default App
