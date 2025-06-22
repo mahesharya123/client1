@@ -125,7 +125,7 @@ useEffect(() => {
 
     // Step 2: Create Razorpay order
    const fullAmount = room.pricePerNight * nights * rooms * 1.18 * 1.02;
-const amountToPay = (
+const amountToPay = Math.round(
   (paymentMethod === 'Pay Half Amount' ? fullAmount / 2 : fullAmount) * 100
 ); // Convert to paise
 console.log('Sending Razorpay amount (paise):', amountToPay);
