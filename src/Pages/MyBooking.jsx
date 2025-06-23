@@ -11,7 +11,7 @@ const MyBookings = () => {
   const [payments, setPayments] = useState({});
   const fetchPayments = async () => {
   try {
-    const res = await fetch("http://localhost:8000/api/payments/user", {
+    const res = await fetch("https://coralcreek-backend.onrender.com/api/payments/user", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -51,7 +51,7 @@ const openCancelModal = (bookingId) => {
 
 const handleConfirmCancel = async (bookingId) => {
   try {
-    const res = await fetch(`http://localhost:8000/api/bookings/${bookingId}/cancel`, {
+    const res = await fetch(`https://coralcreek-backend.onrender.com/api/bookings/${bookingId}/cancel`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -90,7 +90,7 @@ const handleConfirmCancel = async (bookingId) => {
 
     const fetchBookings = async () => {
       try {
-        const res = await fetch("http://localhost:8000/api/bookings/user", {
+        const res = await fetch("https://coralcreek-backend.onrender.com/api/bookings/user", {
           headers: {
             Authorization: `Bearer ${token}`
           }

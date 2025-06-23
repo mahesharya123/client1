@@ -27,7 +27,7 @@ const AddMenu = () => {
     try {
       setSuccess(false);
       setError('');
-      await axios.post('http://localhost:8000/api/menu', { title, items: dishes });
+      await axios.post('https://coralcreek-backend.onrender.com/api/menu', { title, items: dishes });
       setSuccess(true);
       setTitle('');
       setDishes([{ name: '', price: '' }]);

@@ -27,7 +27,7 @@ const Account = () => {
   const handleMobileUpdate = async () => {
     clearMessages();
     try {
-      const res = await fetch('http://localhost:8000/api/users/update-mobile', {
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/users/update-mobile', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const Account = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8000/api/users/reset-password', {
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/users/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const Account = () => {
     if (!window.confirm('Are you sure you want to delete your account?')) return;
 
     try {
-      const res = await fetch('http://localhost:8000/api/users/delete', {
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/users/delete', {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,

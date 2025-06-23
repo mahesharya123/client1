@@ -67,7 +67,7 @@ useEffect(() => {
     : totalPrice;
 
   try {
-    const res = await fetch('http://localhost:8000/api/bookings', {
+    const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ useEffect(() => {
  
   try {
     // Step 1: Create Booking in DB
-    const bookingRes = await fetch('http://localhost:8000/api/bookings', {
+    const bookingRes = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
 
 
 
-    const orderRes = await fetch('http://localhost:8000/api/payments/create-order', {
+    const orderRes = await fetch('https://coralcreek-backend.onrender.com/api/payments/create-order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
   console.log("Razorpay response:", response);
 
   // ✅ 1. Update Booking
-  await fetch(`http://localhost:8000/api/bookings/${bookingData.booking._id}/pay-success`, {
+  await fetch(`https://coralcreek-backend.onrender.com/api/bookings/${bookingData.booking._id}/pay-success`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
   });
 
   // ✅ 2. Create Payment record manually
-  await fetch('http://localhost:8000/api/payments/save', {
+  await fetch('https://coralcreek-backend.onrender.com/api/payments/save', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/rooms/${id}`);
+        const res = await fetch(`https://coralcreek-backend.onrender.com/api/rooms/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Room not found');
         setRoom(data);

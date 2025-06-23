@@ -27,7 +27,7 @@ const Register = () => {
     setError('');
     if (!formData.email) return setError('Enter an email first');
     try {
-      const res = await fetch('http://localhost:8000/api/auth/send-email-otp', {
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/auth/send-email-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: formData.email })
@@ -54,7 +54,7 @@ const Register = () => {
     setError('');
     if (!emailOtp) return setError('Enter email OTP');
     try {
-      const res = await fetch('http://localhost:8000/api/auth/verify-email-otp', {
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/auth/verify-email-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: formData.email, otp: emailOtp })
@@ -85,7 +85,7 @@ const Register = () => {
     }
 
     try {
-   const res = await fetch('http://localhost:8000/api/auth/register', {
+   const res = await fetch('https://coralcreek-backend.onrender.com/api/auth/register', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ ...formData, emailVerified: true })  // ✅ Add this

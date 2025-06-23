@@ -9,7 +9,7 @@ const FeaturedDestination = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/rooms');
+        const res = await axios.get('https://coralcreek-backend.onrender.com/api/rooms');
         setRooms(res.data.rooms.slice(0, 4)); // Show only first 4 rooms
       } catch (err) {
         console.error('Failed to fetch rooms:', err);

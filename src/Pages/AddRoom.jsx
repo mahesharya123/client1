@@ -39,7 +39,7 @@ const AddRoom = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:8000/api/rooms', data, {
+      const res = await axios.post('https://coralcreek-backend.onrender.com/api/rooms', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
