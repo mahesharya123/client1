@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchBookings = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+        const res = await fetch('http://localhost:8000/api/bookings', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

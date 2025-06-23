@@ -14,7 +14,7 @@ const ListRoom = () => {
 
   const fetchRooms = async () => {
     try {
-      const res = await axios.get('https://coralcreek-backend.onrender.com/api/rooms');
+      const res = await axios.get('http://localhost:8000/api/rooms');
       setRooms(res.data.rooms);
     } catch (err) {
       console.error('Failed to fetch rooms:', err);
@@ -76,7 +76,7 @@ const ListRoom = () => {
       setSaving(true);
       setSuccessMessage('');
 
-      await axios.put(`https://coralcreek-backend.onrender.com/api/rooms/${id}`, formData, {
+      await axios.put(`http://localhost:8000/api/rooms/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

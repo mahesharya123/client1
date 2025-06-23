@@ -25,6 +25,7 @@ import AdminNavbar from './Pages/admin/AdminNavbar';
 import ListRoom from './Pages/ListRoom';
 import AddMenu from './Pages/AddMenu';
 import ListMenu from './Pages/ListMenu';
+import Account from './Pages/Account';
 const user = JSON.parse(localStorage.getItem('user'));
 
 function App() {
@@ -50,6 +51,7 @@ const isAdmin = user?.isAdmin;
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/Services" element={<Services1 />} />
           <Route path="/mybookings" element={<MyBookings />} />
+           <Route path="/account" element={<Account />} />
           <Route path="/restaurant-menu" element={<RestaurantMenu />} />
 
           {/* Admin Routes with Layout */}

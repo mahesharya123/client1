@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { FaWineGlassAlt } from 'react-icons/fa';
@@ -9,6 +9,22 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, []);
+
+
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -46,7 +62,7 @@ const Navbar = () => {
          </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-6" ref={dropdownRef}>
           <Link to="/">Home</Link>
           <Link to="/rooms">Rooms</Link>
           <Link to="/Services">Services</Link>
@@ -55,7 +71,7 @@ const Navbar = () => {
           <Link to="/Contact">Contact</Link>
 
          {user ? (
-  <div className="relative">
+  <div className="relative" ref={dropdownRef}>
     <button onClick={toggleDropdown} className="bg-black text-white w-9 h-9 rounded-full font-semibold">
       {user.name?.charAt(0).toUpperCase()}
     </button>
@@ -85,7 +101,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Nav */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="md:hidden flex items-center gap-2" ref={dropdownRef}>
           {user ? (
             <button onClick={toggleDropdown} className="bg-blue-600 text-white w-9 h-9 rounded-full font-semibold">
               {user.name?.charAt(0).toUpperCase()}
@@ -120,15 +136,16 @@ const Navbar = () => {
 
       {/* Mobile Nav Links */}
       {navOpen && (
-        <div className="md:hidden bg-white px-4 pt-4 pb-6 space-y-2 border-t">
-          <Link to="/" className="block">Home</Link>
-          <Link to="/rooms" className="block">Rooms</Link>
-          <Link to="/Services" className="block">Services</Link>
-          <Link to="/About" className="block">About</Link>
-          <Link to="/Gallery" className="block">Gallery</Link>
-          <Link to="/Contact" className="block">Contact</Link>
-        </div>
-      )}
+  <div className="md:hidden bg-white px-4 pt-4 pb-6 space-y-2 border-t" ref={dropdownRef}>
+    <Link to="/" onClick={() => setNavOpen(false)} className="block">Home</Link>
+    <Link to="/rooms" onClick={() => setNavOpen(false)} className="block">Rooms</Link>
+    <Link to="/Services" onClick={() => setNavOpen(false)} className="block">Services</Link>
+    <Link to="/About" onClick={() => setNavOpen(false)} className="block">About</Link>
+    <Link to="/Gallery" onClick={() => setNavOpen(false)} className="block">Gallery</Link>
+    <Link to="/Contact" onClick={() => setNavOpen(false)} className="block">Contact</Link>
+  </div>
+)}
+
     </nav>
   );
 };

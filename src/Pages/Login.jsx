@@ -19,7 +19,7 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('https://coralcreek-backend.onrender.com/api/auth/login', {
+      const response = await fetch('http://localhost:8000/api/auth/login', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -32,16 +32,18 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // ✅ Store token and user info
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+    if (response.ok) {
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('user', JSON.stringify(data.user));
+  navigate('/');
+} else {
+  if (data.message === 'User not found. Please register first.') {
+    setError(data.message);
+  } else {
+    setError(data.message || 'Login failed. Please try again.');
+  }
+}
 
-        // 🔁 Navigate to dashboard or homepage
-        navigate('/');
-      } else {
-        setError(data.message || 'Login failed. Please try again.');
-      }
     } catch (err) {
       setError('Server error. Please try again later.');
     }

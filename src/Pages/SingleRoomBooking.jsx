@@ -27,7 +27,7 @@ const SingleRoomBooking = () => {
 useEffect(() => {
   const fetchRoom = async () => {
     try {
-      const res = await fetch(`https://coralcreek-backend.onrender.com/api/rooms/${id}`);
+      const res = await fetch(`http://localhost:8000/api/rooms/${id}`);
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Room not found');
       setRoom(data);
@@ -77,7 +77,7 @@ useEffect(() => {
     if (!isDateValid()) return;
 
     try {
-      const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+      const res = await fetch('http://localhost:8000/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

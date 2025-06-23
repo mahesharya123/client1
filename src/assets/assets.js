@@ -218,7 +218,7 @@ export const roomsDummyData = [
 
 // Example API fetch function
 export const getAllRooms = async () => {
-  const response = await fetch("https://coralcreek-backend.onrender.com/api/rooms");
+  const response = await fetch("http://localhost:8000/api/rooms");
   if (!response.ok) throw new Error("Failed to fetch rooms");
   return await response.json();
 };

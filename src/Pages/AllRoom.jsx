@@ -13,7 +13,7 @@ const AllRoom = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await fetch('https://coralcreek-backend.onrender.com/api/rooms');
+        const res = await fetch('http://localhost:8000/api/rooms');
         const data = await res.json();
         if (res.ok) {
           setRooms(data.rooms);
@@ -58,7 +58,12 @@ const AllRoom = () => {
           <div className='w-full md:w-1/2'>
             <img
               onClick={() => {
-                navigate(`/rooms/${room._id}`);
+               if(room.isAvailable){
+                 navigate(`/rooms/${room._id}`);
+               }
+               else{
+                alert(`Sorry! ${room.roomType} is not available please book another room`)
+               }
                 scrollTo(0, 0);
               }}
               src={room.images[0]}

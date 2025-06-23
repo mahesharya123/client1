@@ -10,7 +10,7 @@ const RestaurantMenu = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const res = await axios.get('https://coralcreek-backend.onrender.com/api/menu');
+        const res = await axios.get('http://localhost:8000/api/menu');
         setMenuData(res.data);
       } catch (err) {
         console.error('Failed to fetch menu:', err);

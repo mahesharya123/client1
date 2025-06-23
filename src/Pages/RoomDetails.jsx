@@ -67,7 +67,7 @@ useEffect(() => {
     : totalPrice;
 
   try {
-    const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+    const res = await fetch('http://localhost:8000/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ useEffect(() => {
  
   try {
     // Step 1: Create Booking in DB
-    const bookingRes = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+    const bookingRes = await fetch('http://localhost:8000/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
 
 
 
-    const orderRes = await fetch('https://coralcreek-backend.onrender.com/api/payments/create-order', {
+    const orderRes = await fetch('http://localhost:8000/api/payments/create-order', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -153,11 +153,12 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
       name: "Coral Creek Resort",
       description: "Room Booking Payment",
       order_id: order.id,
-    handler: async function (response) {
+  handler: async function (response) {
   console.log("✅ Razorpay Success Handler Called");
   console.log("Razorpay response:", response);
 
-  await fetch(`https://coralcreek-backend.onrender.com/api/bookings/${bookingData.booking._id}/pay-success`, {
+  // ✅ 1. Update Booking
+  await fetch(`http://localhost:8000/api/bookings/${bookingData.booking._id}/pay-success`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -167,14 +168,32 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
       paymentId: response.razorpay_payment_id,
       isPaid: true,
       status: 'confirmed',
-     
+     amountPaid: amountToPay/100,
+   
+      
     })
   });
 
+  // ✅ 2. Create Payment record manually
+  await fetch('http://localhost:8000/api/payments/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      razorpayPaymentId: response.razorpay_payment_id,
+      amountPaid: order.amount/100 , // amount in rupees
+         booking:bookingData.booking._id,
+      user: user._id || user.id,
+      status: 'successful'
+    })
+  });
 
-        alert("Payment successful!");
-        navigate('/mybookings');
-      },
+  alert("Payment successful!");
+  navigate('/mybookings');
+}
+,
       prefill: {
         name: user?.name || '',
         email: user?.email || ''
@@ -195,7 +214,7 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await fetch(`https://coralcreek-backend.onrender.com/api/rooms/${id}`);
+        const res = await fetch(`http://localhost:8000/api/rooms/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Room not found');
         setRoom(data);

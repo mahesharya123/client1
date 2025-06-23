@@ -51,7 +51,7 @@ const Hero = () => {
     }
 
     try {
-      const res = await fetch('https://coralcreek-backend.onrender.com/api/availability/check-availability', {
+      const res = await fetch('http://localhost:8000/api/availability/check-availability', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ roomType }),
