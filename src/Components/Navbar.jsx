@@ -10,22 +10,30 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dropdownRef = useRef(null);
+          // ✅ must be defined
+  const mobileMenuRef = useRef(null);     
 
-  useEffect(() => {
+ useEffect(() => {
   const handleClickOutside = (event) => {
+    // Close dropdown if click is outside of dropdownRef
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setShowDropdown(false);
+    }
+
+    // Close mobile nav if click is outside of mobileMenuRef and hamburger
+    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      setNavOpen(false);
     }
   };
 
   document.addEventListener('mousedown', handleClickOutside);
+  document.addEventListener('touchstart', handleClickOutside); // for mobile taps
+
   return () => {
     document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('touchstart', handleClickOutside);
   };
 }, []);
-
-
-
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setUser(storedUser);
@@ -79,7 +87,7 @@ const Navbar = () => {
       <div className="absolute right-0 mt-2 w-40 bg-white border rounded-md shadow-lg">
         {user.isAdmin ? (
           <>
-            <Link to="/admin"  className="block px-4 py-2 text-sm hover:bg-gray-100">My Dashboard</Link>
+            <Link to="/admin/dashboard"  className="block px-4 py-2 text-sm hover:bg-gray-100">My Dashboard</Link>
             <Link to="/account" className="block px-4 py-2 text-sm hover:bg-gray-100">Manage Account</Link>
           </>
         ) : (
@@ -103,7 +111,7 @@ const Navbar = () => {
         {/* Mobile Nav */}
         <div className="md:hidden flex items-center gap-2" ref={dropdownRef}>
           {user ? (
-            <button onClick={toggleDropdown} className="bg-blue-600 text-white w-9 h-9 rounded-full font-semibold">
+            <button onClick={toggleDropdown} className="bg-black text-white w-9 h-9 rounded-full font-semibold">
               {user.name?.charAt(0).toUpperCase()}
             </button>
           ) : (
@@ -116,8 +124,8 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Dropdown under icon */}
-      {showDropdown && user && (
-  <div className="md:hidden bg-white border-t px-4 py-3">
+     {showDropdown && user && (
+  <div   ref={mobileMenuRef} className="md:hidden bg-white border-t px-4 py-3">
     {user.isAdmin ? (
       <>
         <Link to="/admin-dashboard" onClick={() => setShowDropdown(false)} className="block py-1">My Dashboard</Link>
@@ -133,10 +141,8 @@ const Navbar = () => {
   </div>
 )}
 
-
-      {/* Mobile Nav Links */}
-      {navOpen && (
-  <div className="md:hidden bg-white px-4 pt-4 pb-6 space-y-2 border-t" ref={dropdownRef}>
+{navOpen && (
+  <div ref={mobileMenuRef} className="md:hidden bg-white px-4 pt-4 pb-6 space-y-2 border-t">
     <Link to="/" onClick={() => setNavOpen(false)} className="block">Home</Link>
     <Link to="/rooms" onClick={() => setNavOpen(false)} className="block">Rooms</Link>
     <Link to="/Services" onClick={() => setNavOpen(false)} className="block">Services</Link>

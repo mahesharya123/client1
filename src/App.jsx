@@ -5,14 +5,14 @@ import { Route } from 'react-router';
 import Home from './Pages/Home';
 import Footer from './Components/Footer';
 import AllRoom from './Pages/AllRoom';
-import Services from './Components/Services';
+
 import ContactUs from './Pages/ContactUs';
 import AboutCoralCreek from './Pages/AboutCoralCreek';
 import GalleryPage from './Pages/Gallery';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import MyBookings from './Pages/MyBooking';
-import SingleRoomBooking from './Pages/SingleRoomBooking';
+
 import Services1 from './Pages/Services1';
 import RestaurantMenu from './Pages/RestaurantMenu';
 import RoomDetails from './Pages/RoomDetails';
@@ -21,7 +21,7 @@ import Register from './Pages/Register';
 import AddRoom from './Pages/AddRoom';
 import AdminLayout from './Pages/AdminLayout';
 import Dashboard from './Pages/admin/Dashboard';
-import AdminNavbar from './Pages/admin/AdminNavbar';
+
 import ListRoom from './Pages/ListRoom';
 import AddMenu from './Pages/AddMenu';
 import ListMenu from './Pages/ListMenu';
@@ -36,7 +36,7 @@ const isAdmin = user?.isAdmin;
    return (
     <div>
       {/* Only show Navbar if NOT in admin routes */}
-      {isAdmin? <AdminNavbar/>: <Navbar user={user} />}
+      { <Navbar user={user} />}
       
       <div className="min-h-[70vh]">
         <Routes>

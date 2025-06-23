@@ -79,9 +79,13 @@ const AllRoom = () => {
               <p className='text-gray-500'>{room.city}</p>
               <p
                 onClick={() => {
-                  navigate(`/rooms/${room._id}`);
-                  scrollTo(0, 0);
-                }}
+            if (room.isAvailable) {
+      navigate(`/rooms/${room._id}`);
+              scrollTo(0, 0);
+               } else {
+              alert(`Sorry! ${room.roomType} is not available. Please book another room.`);
+            }
+          }}
                 className='text-gray-800 text-3xl font-playfair cursor-pointer mt-1'
               >
                 {room.roomType}
@@ -115,15 +119,25 @@ const AllRoom = () => {
               <p className='text-xl font-semibold text-gray-700'>
                 Rs {room.pricePerNight} / night
               </p>
-              <button
-                onClick={() => {
-                  navigate(`/rooms/${room._id}`);
-                  scrollTo(0, 0);
-                }}
-                className='bg-black text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition'
-              >
-                Book Now
-              </button>
+              <button           
+          onClick={() => {
+            if (room.isAvailable) {
+      navigate(`/rooms/${room._id}`);
+              scrollTo(0, 0);
+               } else {
+              alert(`Sorry! ${room.roomType} is not available. Please book another room.`);
+            }
+          }}
+          disabled={!room.isAvailable}
+          className={`px-5 py-2 rounded-xl transition ${
+            room.isAvailable
+              ? 'bg-black text-white hover:bg-blue-700'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
+>
+  Book Now
+</button>
+        
             </div>
           </div>
         </div>

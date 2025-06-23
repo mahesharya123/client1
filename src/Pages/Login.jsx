@@ -14,40 +14,39 @@ const Login = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-  email: formData.email,
-  password: formData.password
-})
+  try {
+    const response = await fetch('http://localhost:8000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password
+      })
+    });
 
-});
-
-
-      const data = await response.json();
+    const data = await response.json();
 
     if (response.ok) {
-  localStorage.setItem('token', data.token);
-  localStorage.setItem('user', JSON.stringify(data.user));
-  navigate('/');
-} else {
-  if (data.message === 'User not found. Please register first.') {
-    setError(data.message);
-  } else {
-    setError(data.message || 'Login failed. Please try again.');
-  }
-}
-
-    } catch (err) {
-      setError('Server error. Please try again later.');
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/');
+    } else {
+      // 🔥 Fix this part
+      if (data.error === 'User not found. Please register first.') {
+        setError(data.error);
+      } else {
+        setError(data.error || 'Login failed. Please try again.');
+      }
     }
-  };
+  } catch (err) {
+    setError('Server error. Please try again later.');
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { FaBed, FaUtensils, FaMusic } from 'react-icons/fa';
 import { assets } from '../assets/assets';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,6 +15,7 @@ const Services1 = () => {
     'Smart TV with streaming',
     'Free Car Parking',
   ];
+  const [showModal, setShowModal] = useState(false);
 
   const sliderSettings = {
     dots: true,
@@ -139,11 +141,13 @@ const Services1 = () => {
             <li>Dedicated event planning team</li>
             <li>Customizable lighting systems</li>
           </ul>
-          <button
-            className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700"
-          >
-            Book Now
-          </button>
+         <button
+  onClick={() => setShowModal(true)}
+  className="bg-black text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-700"
+>
+  Book Now
+</button>
+
         </div>
         <div className="w-full md:w-1/2">
           <img
@@ -153,6 +157,25 @@ const Services1 = () => {
           />
         </div>
       </section>
+      {showModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+    <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg text-center relative">
+      <h2 className="text-xl font-bold text-gray-800 mb-3">Book Our Party Hall</h2>
+      <p className="text-gray-600 mb-4">
+        For bookings and availability, please contact us directly at the number below.
+        Our team will assist you in making your event truly unforgettable.
+      </p>
+      <p className="text-lg font-semibold text-blue-600 mb-6">📞 Call Now: <a href="tel:9474206075">9474206075</a></p>
+      <button
+        onClick={() => setShowModal(false)}
+        className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
