@@ -41,9 +41,13 @@ const HotelCard = ({ room, index }) => {
           </p>
           <button
             onClick={() => {
-              navigate(`/rooms/${room._id}`);
+            if (room.isAvailable) {
+      navigate(`/rooms/${room._id}`);
               scrollTo(0, 0);
-            }}
+               } else {
+              alert(`Sorry! ${room.roomType} is not available. Please book another room.`);
+            }
+          }}
             className='px-4 py-2 text-sm text-white font-medium border border-gray-300 bg-black rounded hover:bg-gray-50 transition-all cursor-pointer'
           >
             Book Now

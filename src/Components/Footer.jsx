@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
-import { FaWineGlassAlt } from 'react-icons/fa';
-import SupportModal from './SupportModal';
+import { FaWineGlassAlt, FaTimes } from 'react-icons/fa';
 
 const Footer = () => {
-  const [modalData, setModalData] = useState({ open: false, title: '', content: '' });
+  const [modalData, setModalData] = useState({ 
+    open: false, 
+    title: '', 
+    content: '' 
+  });
 
   const openModal = (title, content) => {
     setModalData({ open: true, title, content });
@@ -15,8 +18,43 @@ const Footer = () => {
     setModalData({ open: false, title: '', content: '' });
   };
 
+  // Modal Component
+  const Modal = () => {
+    if (!modalData.open) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-xl">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-gray-800">{modalData.title}</h3>
+            <button 
+              onClick={closeModal}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <FaTimes className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="mb-6">
+            <p className="text-gray-600">{modalData.content}</p>
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={closeModal}
+              className="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700 transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className='text-gray-500/80 border border-yellow-200 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+    <div className='text-gray-500/80 border border-yellow-200 pt-8 px-6 md:px-16 lg:px-24 xl:px-32 relative'>
+      {/* Modal Popup */}
+      <Modal />
+      
       {/* Mobile layout */}
       <div className='md:hidden'>
         {/* Logo row */}
@@ -49,11 +87,11 @@ const Footer = () => {
           <div>
             <p className='font-playfair text-lg text-gray-800'>SUPPORT</p>
             <ul className='mt-3 flex flex-col gap-2 text-sm'>
-              <li><button onClick={() => openModal("Help Center", "You can reach out 24x7 for any booking help.")}>Help Center</button></li>
-              <li><button onClick={() => openModal("Safety Information", "We follow all safety guidelines for COVID-19 and hygiene.")}>Safety Information</button></li>
-              <li><button onClick={() => openModal("Cancellation Options", "You can cancel up to 48 hours before check-in.")}>Cancellation Options</button></li>
-              <li><button onClick={() => openModal("Call Us", "For any urgent help, call us at +91 9474206075.")}>Call Us</button></li>
-              <li><button onClick={() => openModal("Amenities", "We offer AC, WiFi, parking, and room service.")}>Amenities</button></li>
+              <li><button className="w-full text-left" onClick={() => openModal("Help Center", "You can reach out 24x7 for any booking help.")}>Help Center</button></li>
+              <li><button className="w-full text-left" onClick={() => openModal("Safety Information", "We follow all safety guidelines for COVID-19 and hygiene.")}>Safety Information</button></li>
+              <li><button className="w-full text-left" onClick={() => openModal("Cancellation Options", "You can cancel up to 48 hours before check-in.")}>Cancellation Options</button></li>
+              <li><button className="w-full text-left" onClick={() => openModal("Call Us", "For any urgent help, call us at +91 9474206075.")}>Call Us</button></li>
+              <li><button className="w-full text-left" onClick={() => openModal("Amenities", "We offer AC, WiFi, parking, and room service.")}>Amenities</button></li>
             </ul>
           </div>
         </div>
@@ -104,11 +142,11 @@ const Footer = () => {
         <div>
           <p className='font-playfair text-lg text-gray-800'>SUPPORT</p>
           <ul className='mt-3 flex flex-col gap-2 text-sm'>
-            <li><button onClick={() => openModal("Help Center", "You can reach out 24x7 for any booking help.")}>Help Center</button></li>
-            <li><button onClick={() => openModal("Safety Information", "We follow all safety guidelines for COVID-19 and hygiene.")}>Safety Information</button></li>
-            <li><button onClick={() => openModal("Cancellation Options", "You can cancel up to 48 hours before check-in.")}>Cancellation Options</button></li>
-            <li><button onClick={() => openModal("Call Us", "For any urgent help, call us at +91 9474206075.")}>Call Us</button></li>
-            <li><button onClick={() => openModal("Amenities", "We offer AC, WiFi, parking, and room service.")}>Amenities</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Help Center", "You can reach out 24x7 for any booking help.")}>Help Center</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Safety Information", "We follow all safety guidelines for COVID-19 and hygiene.")}>Safety Information</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Cancellation Options", "You can cancel up to 48 hours before check-in.")}>Cancellation Options</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Call Us", "For any urgent help, call us at +91 9474206075.")}>Call Us</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Amenities", "We offer AC, WiFi, parking, and room service.")}>Amenities</button></li>
           </ul>
         </div>
 
@@ -116,22 +154,22 @@ const Footer = () => {
         <div>
           <p className='font-playfair text-lg text-gray-800'>SOCIAL MEDIA</p>
           <ul className='mt-3 flex flex-col gap-3 text-sm'>
-            <Link to={"https://www.instagram.com/_coral__creek?igsh=MXMza2V4dmZjNmJ4MQ=="} className='flex items-center gap-3'>
+            <li className='flex items-center gap-3'>
               <img src={assets.instagramIcon} alt='Instagram' className='w-5' />
               <a href="https://www.instagram.com/_coral__creek?igsh=MXMza2V4dmZjNmJ4MQ==" target='_blank' rel='noreferrer'>Instagram</a>
-            </Link>
-            <Link to={'https://www.facebook.com/profile.php?id=100083330514889'} className='flex items-center gap-3'>
+            </li>
+            <li className='flex items-center gap-3'>
               <img src={assets.facebookIcon} alt='Facebook' className='w-5' />
               <a href="https://www.facebook.com/profile.php?id=100083330514889" target='_blank' rel='noreferrer'>Facebook</a>
-            </Link>
-            <Link className='flex items-center gap-3'>
+            </li>
+            <li className='flex items-center gap-3'>
               <img src={assets.twitterIcon} alt='Twitter' className='w-5' />
               <span>Twitter</span>
-            </Link>
-            <Link className='flex items-center gap-3'>
+            </li>
+            <li className='flex items-center gap-3'>
               <img src={assets.linkendinIcon} alt='LinkedIn' className='w-5' />
               <span>LinkedIn</span>
-            </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -146,14 +184,6 @@ const Footer = () => {
           <p>1 Baratang, Great Trunk Rd, Port Blair, Andaman and Nicobar Islands 744210</p>
         </div>
       </div>
-
-      {/* Modal */}
-      <SupportModal
-        isOpen={modalData.open}
-        onClose={closeModal}
-        title={modalData.title}
-        content={modalData.content}
-      />
     </div>
   );
 };

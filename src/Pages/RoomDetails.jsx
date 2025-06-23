@@ -299,33 +299,67 @@ console.log('Sending Razorpay amount (paise):', amountToPay);
     // Form is valid, you can proceed to show pricing or call API
   }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-    {/* Rooms */}
-    <div className="flex flex-col">
-      <label htmlFor="rooms" className="text-sm font-medium">Rooms</label>
-      <input
-        min={1}
-        max={10}
-        id="rooms"
-        type="number"
-        value={rooms}
-        onChange={handleRoomChange}
-        className="rounded border border-gray-300 px-3 py-2 mt-1 text-sm outline-none"
-      />
-    </div>
+   {/* Rooms */}
+<div className="flex flex-col">
+  <label htmlFor="rooms" className="text-sm font-medium mb-1">Rooms</label>
+  <div className="flex items-center space-x-2">
+    <button
+      type="button"
+      onClick={() => setRooms(prev => Math.max(1, prev - 1))}
+      className="px-3 py-1 bg-gray-300 rounded"
+    >-</button>
+    <input
+      id="rooms"
+      type="number"
+      min={1}
+      max={10}
+      value={rooms}
+      onChange={handleRoomChange}
+      className="w-16 text-center border rounded px-2 py-1 text-sm"
+    />
+    <button
+      type="button"
+      onClick={() => setRooms(prev => {
+        const updated = Math.min(10, prev + 1);
+        if (guests > updated * 2) setGuests(updated * 2);
+        return updated;
+      })}
+      className="px-3 py-1 bg-gray-300 rounded"
+    >+</button>
+  </div>
+</div>
 
-    {/* Guests */}
-    <div className="flex flex-col">
-      <label htmlFor="guests" className="text-sm font-medium">Guests</label>
-      <input
-        min={1}
-        max={rooms * 2}
-        id="guests"
-        type="number"
-        value={guests}
-        onChange={handleGuestChange}
-        className="rounded border border-gray-300 px-3 py-2 mt-1 text-sm outline-none"
-      />
-    </div>
+{/* Guests */}
+<div className="flex flex-col">
+  <label htmlFor="guests" className="text-sm font-medium mb-1">Guests</label>
+  <div className="flex items-center space-x-2">
+    <button
+      type="button"
+      onClick={() => setGuests(prev => Math.max(1, prev - 1))}
+      className="px-3 py-1 bg-gray-300 rounded"
+    >-</button>
+    <input
+      id="guests"
+      type="number"
+      min={1}
+      max={rooms * 2}
+      value={guests}
+      onChange={handleGuestChange}
+      className="w-16 text-center border rounded px-2 py-1 text-sm"
+    />
+    <button
+      type="button"
+      onClick={() => {
+        if (guests < rooms * 2) {
+          setGuests(prev => prev + 1);
+        } else {
+          alert("Please add more rooms to accommodate more guests.");
+        }
+      }}
+      className="px-3 py-1 bg-gray-300 rounded"
+    >+</button>
+  </div>
+</div>
 
     {/* Check In */}
     <div className="flex flex-col">
