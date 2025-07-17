@@ -45,7 +45,7 @@ const ContactUs = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">Contact Us</h1>
+          <h1 className="text-4xl font-bold text-gray-800 mb-4 mt-10">Contact Us</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Have questions or want to learn more? Reach out to our team and we'll get back to you as soon as possible.
           </p>
@@ -54,7 +54,7 @@ const ContactUs = () => {
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="md:flex">
             {/* Contact Info */}
-            <div className="md:w-2/5 bg-gradient-to-br from-black to-gray-800 text-white p-8 md:p-12">
+            <div className="md:w-2/5 bg-gradient-to-br from-blue-200 to-gray-800 text-white p-8 md:p-12">
               <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -161,7 +161,7 @@ const ContactUs = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gray-700 text-white py-3 px-6 rounded-lg hover:bg-black transition duration-300 font-medium"
+                  className="w-full bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-black transition duration-300 font-medium"
                 >
                   {loading ? 'Sending...' : 'Send Message'}
                 </button>

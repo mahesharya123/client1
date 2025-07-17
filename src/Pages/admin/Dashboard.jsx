@@ -8,39 +8,41 @@ const Dashboard = () => {
   const [filterType, setFilterType] = useState('all'); // all | confirmed
   const [todayTotal, setTodayTotal] = useState(0);
   const [todayRevenue, setTodayRevenue] = useState(0);
+useEffect(() => {
+  const fetchBookings = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error);
+      setBookings(data);
+      setFiltered(data);
 
-        setBookings(data);
-        setFiltered(data);
+      const today = new Date().toISOString().split('T')[0];
 
-        const today = new Date().toISOString().split('T')[0];
-        const todayBookings = data.filter((b) =>
-          b.createdAt?.startsWith(today)
-        );
-        const totalRevenue = todayBookings.reduce(
-          (sum, b) => sum + (b.totalPrice || 0),
-          0
-        );
+      const todayConfirmedBookings = data.filter(
+        (b) => b.createdAt?.startsWith(today) && b.status === 'confirmed'
+      );
 
-        setTodayTotal(todayBookings.length);
-        setTodayRevenue(totalRevenue);
-      } catch (err) {
-        console.error(err.message);
-        alert('Failed to load bookings');
-      }
-    };
+      const totalConfirmedRevenue = todayConfirmedBookings.reduce(
+        (sum, b) => sum + (b.totalPrice || 0),
+        0
+      );
 
-    fetchBookings();
-  }, []);
+      setTodayTotal(todayConfirmedBookings.length);
+      setTodayRevenue(totalConfirmedRevenue);
+    } catch (err) {
+      console.error(err.message);
+      alert('Failed to load bookings');
+    }
+  };
+
+  fetchBookings();
+}, []);
+
 
   useEffect(() => {
     applyFilters();
@@ -131,8 +133,8 @@ const Dashboard = () => {
               <th className="p-3">Check-in</th>
               <th className="p-3">Check-out</th>
               <th className="p-3">Guests</th>
-              <th className="p-3">Price</th>
               <th className="p-3">Status</th>
+              <th className="p-3">Payment</th>
              
             </tr>
           </thead>

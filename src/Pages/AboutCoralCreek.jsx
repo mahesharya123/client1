@@ -333,7 +333,7 @@ Cancellation policy-=If you cancel your booked room within seven days, you will 
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             A trip to Baratang is a stunning and exhilarating experience which one must visit during a lifetime. Let Coral Creek Resort be your perfect island sanctuary.
           </p>
-          <button className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg rounded-full shadow-xl transition duration-300">
+          <button onClick={()=>{navigate('/rooms')}} className="px-8 py-4 bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg rounded-full shadow-xl transition duration-300">
             Plan Your Getaway Today
           </button>
         </div>

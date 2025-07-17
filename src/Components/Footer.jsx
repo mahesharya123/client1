@@ -121,8 +121,8 @@ const Footer = () => {
             <h1 style={{ fontSize: '1.8em' }} className='text-black ml-2'>Coral Creek</h1>
           </a>
           <p className='text-sm mt-2'>
-            Discover the world's most extraordinary places to stay, from boutique hotels
-            to luxury villas and private islands.
+            "Relax. Rejuvenate. Repeat — Rooms with a view, comfort with a soul — welcome to Coral Creek."
+           
           </p>
         </div>
 
@@ -144,7 +144,7 @@ const Footer = () => {
           <ul className='mt-3 flex flex-col gap-2 text-sm'>
             <li><button className="w-full text-left" onClick={() => openModal("Help Center", "You can reach out 24x7 for any booking help.")}>Help Center</button></li>
             <li><button className="w-full text-left" onClick={() => openModal("Safety Information", "We follow all safety guidelines for COVID-19 and hygiene.")}>Safety Information</button></li>
-            <li><button className="w-full text-left" onClick={() => openModal("Cancellation Options", "You can cancel up to 48 hours before check-in.")}>Cancellation Options</button></li>
+            <li><button className="w-full text-left" onClick={() => openModal("Booking terms=50% advance payment is required before booking the room. Cancellation policy-=If you cancel your booked room within seven days, you will only get a refund of 50% of the advance amount you paid. After seven days, the advance amount will not be refunded.")}>Cancellation Options</button></li>
             <li><button className="w-full text-left" onClick={() => openModal("Call Us", "For any urgent help, call us at +91 9474206075.")}>Call Us</button></li>
             <li><button className="w-full text-left" onClick={() => openModal("Amenities", "We offer AC, WiFi, parking, and room service.")}>Amenities</button></li>
           </ul>
