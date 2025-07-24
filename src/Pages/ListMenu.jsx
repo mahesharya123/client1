@@ -13,7 +13,7 @@ const ListMenu = () => {
 
   const fetchMenu = async () => {
     try {
-      const res = await axios.get('https://coralcreek-backend.onrender.com/api/menu');
+      const res = await axios.get('https://coralcreek-backend-production.up.railway.app/api/menu');
       setMenuData(res.data);
     } catch (err) {
       console.error('Failed to fetch menu:', err);
@@ -51,7 +51,7 @@ const ListMenu = () => {
   const handleSave = async () => {
     try {
       const id = menuData[editingIndex]._id;
-      await axios.put(`https://coralcreek-backend.onrender.com/api/menu/${id}`, form);
+      await axios.put(`https://coralcreek-backend-production.up.railway.app/api/menu/${id}`, form);
       setEditingIndex(null);
       fetchMenu();
     } catch (err) {

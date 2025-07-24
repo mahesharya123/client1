@@ -12,7 +12,7 @@ useEffect(() => {
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+      const res = await fetch('https://coralcreek-backend-production.up.railway.app/api/bookings', {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

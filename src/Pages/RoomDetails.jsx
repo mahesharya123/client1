@@ -73,7 +73,7 @@ const RoomDetails = () => {
     };
 
     try {
-      const bookingRes = await fetch('https://coralcreek-backend.onrender.com/api/bookings', {
+      const bookingRes = await fetch('https://coralcreek-backend-production.up.railway.app/api/bookings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const RoomDetails = () => {
 
       console.log('Sending Razorpay amount (paise):', amountToPay);
 
-      const orderRes = await fetch('https://coralcreek-backend.onrender.com/api/payments/create-order', {
+      const orderRes = await fetch('https://coralcreek-backend-production.up.railway.app/api/payments/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ const RoomDetails = () => {
           console.log("✅ Razorpay Success Handler Called");
           console.log("Razorpay response:", response);
 
-          await fetch(`https://coralcreek-backend.onrender.com/api/bookings/${bookingData.booking._id}/pay-success`, {
+          await fetch(`https://coralcreek-backend-production.up.railway.app/api/bookings/${bookingData.booking._id}/pay-success`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ const RoomDetails = () => {
             })
           });
 
-          await fetch('https://coralcreek-backend.onrender.com/api/payments/save', {
+          await fetch('https://coralcreek-backend-production.up.railway.app/api/payments/save', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ const RoomDetails = () => {
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-        const res = await fetch(`https://coralcreek-backend.onrender.com/api/rooms/${id}`);
+        const res = await fetch(`https://coralcreek-backend-production.up.railway.app/api/rooms/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Room not found');
         setRoom(data);

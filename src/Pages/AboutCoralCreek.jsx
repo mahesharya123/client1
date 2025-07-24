@@ -1,5 +1,7 @@
 // src/pages/AboutCoralCreek.jsx
 import React from 'react';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 import { assets } from '../assets/assets';
 import { roomsDummyData } from '../assets/assets';
 import HotelCard from '../Components/HotelCard';
@@ -8,6 +10,20 @@ import { useNavigate } from 'react-router';
 
 const AboutCoralCreek = () => {
   const navigate = useNavigate()
+  const [rooms, setRooms] = useState([]);
+  
+    useEffect(() => {
+      const fetchRooms = async () => {
+        try {
+          const res = await axios.get('https://coralcreek-backend-production.up.railway.app/api/rooms');
+          setRooms(res.data.rooms.slice(0, 4)); // Show only first 4 rooms
+        } catch (err) {
+          console.error('Failed to fetch rooms:', err);
+        }
+      };
+  
+      fetchRooms();
+    }, []);
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-emerald-50">
       {/* Hero Section */}
@@ -176,8 +192,13 @@ const AboutCoralCreek = () => {
       />
       
       <div className='flex flex-wrap justify-center gap-6 mt-12   sm:mt-16'>
-        {roomsDummyData.slice(0, 4).map((room, index) => (
-          <HotelCard key={room._id} room={room} index={index}  />
+         {rooms.map((room, index) => (
+          <HotelCard key={room._id} room={room} index={index} />
+           
+        ))}
+          {rooms.map((room, index) => (
+          <HotelCard key={room._id} room={room} index={index} />
+           
         ))}
       </div>
 
